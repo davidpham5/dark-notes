@@ -4,10 +4,11 @@ Dark notes is serverless app. The API endpoints live in AWS apiGateway. Authenti
 
 To start, at root
 - `yarn install`
-- 'yarn start`
+- `yarn start`
+
 In a separate bash window
 - `yarn watch-css`
 
 To deploy to serverless
-- `cd serverless/API`
+- `cd ../serverless/API`
 - `serverless deploy`

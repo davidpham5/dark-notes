@@ -1,0 +1,196 @@
+.App header {
+  display: flex;
+  justify-content: center;
+}
+.App {
+  min-height: 100vh;
+  &.night-mode {
+    background-color: #333;
+    color: #fff;
+    main {
+      background-color: #333;
+    }
+    .top-nav-wide {
+      a {
+        color: #eee;
+        &:hover {
+          color: #fff;
+        }
+      }
+    }
+  }
+  a {
+    color: #7AA1D2;
+  }
+}
+.App-header {
+  min-height: 128px;
+  // background: #CC95C0;  /* fallback for old browsers */
+  // /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ed99d3+0,88d7f6+100 */
+  // background: #ed99d3; /* Old browsers */
+  // background: -moz-linear-gradient(45deg, #ed99d3 0%, #88d7f6 100%); /* FF3.6-15 */
+  // background: -webkit-linear-gradient(45deg, #ed99d3 0%,#88d7f6 100%); /* Chrome10-25,Safari5.1-6 */
+  // background: linear-gradient(45deg, #ed99d3 0%,#88d7f6 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ed99d3', endColorstr='#88d7f6',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  background-color: #fff;
+  border-bottom: 5px solid #000;
+}
+
+.App-title {
+  font-size: 2.9rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  .symbol {
+    font-size: 2.1rem;
+  }
+  a {
+    cursor: pointer;
+    // color: #fff;
+    color: #333;
+  }
+}
+.top-nav-wide {
+  display: block;
+  font-size: 1.6rem;
+  line-height: 1.6rem;
+  font-weight: 500;
+  text-align: center;
+  text-transform: uppercase;
+  margin: 1rem 0 0rem 0;
+  padding-top: 1em;
+  a {
+    margin: 1rem;
+    padding: 1rem;
+    text-decoration: none;
+    color: #333;
+    &:hover {
+      color: #7AA1D2;
+    }
+  }
+}
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.react-list {
+  line-height: 1.5;
+}
+
+input {
+  padding: 10px;
+  border-radius: 5px;
+  outline: none;
+  margin: 0;
+  width: 98%;
+  border: 1px solid #dddddd;
+}
+
+.table {
+  margin: 20px 0;
+  width: 100%;
+}
+
+.table-header {
+  display: flex;
+  line-height: 24px;
+  font-size: 16px;
+  padding: 0 10px;
+  justify-content: space-between;
+}
+
+.table-empty {
+  margin: 200px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.table-row {
+  display: flex;
+  justify-content: space-between;
+  line-height: 24px;
+  margin: 10px 0;
+  padding: 10px;
+  background: #ffffff;
+  color: #333;
+  border: 1px solid #e3e3e3;
+  .btn {
+    display: flex;
+    align-self: flex-start;
+    padding: 0 5px;
+    text-decoration: none;
+
+    &:hover {
+      background-color: #eee;
+    }
+  }
+}
+.table-header > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 5px;
+}
+
+.table-row > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 5px;
+}
+
+.button-inline {
+  border-width: 0;
+  background: transparent;
+  color: inherit;
+  text-align: inherit;
+  -webkit-font-smoothing: inherit;
+  padding: 0;
+  font-size: inherit;
+  cursor: pointer;
+}
+
+.button-active {
+  border-radius: 0;
+  border-bottom: 1px solid #38BB6C;
+}
+
+.form-group {
+  label {
+    display: flex;
+    margin-bottom: 5px;
+  }
+}
+
+.form-controls {
+
+}
+.input-group {
+  display: flex;
+}
+ul {
+  -webkit-padding-start: 20px;
+}
+.night-mode {
+  .table-row {
+    background-color: #333;
+    color: #fff;
+  }
+}
+
+.nav-right {
+  display: flex;
+  justify-content: flex-end;
+  align-self: center;
+  margin-right: 15px;
+  a {
+    color: #fff;
+    margin-left: 10px;
+  }
+}

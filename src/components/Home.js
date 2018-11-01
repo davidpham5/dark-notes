@@ -1,0 +1,154 @@
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import { PageHeader, ListGroup, ListGroupItem } from "react-bootstrap";
+import { API } from 'aws-amplify'
+import Parser from 'html-react-parser';
+import { Image } from "react-bootstrap";
+import '../styles/App.css'
+import '../styles/Base.css'
+
+export default class Home extends Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      loading: false,
+      notes: []
+    }
+    this.renderNotesList = this.renderNotesList.bind(this)
+    this.renderLander = this.renderLander.bind(this)
+    this.renderNotes = this.renderNotes.bind(this)
+    this.notes = this.notes.bind(this)
+    this.handleNoteClick = this.handleNoteClick.bind
+  }
+  handleNoteClick = event => {
+    event.preventDefault();
+    this.props.history.push(event.currentTarget.getAttribute("href"));
+  }
+
+  notes () {
+    return API.get('notes', '/notes')
+  }
+
+  async componentDidMount () {
+    if (!this.props.isAuthenticated) {
+      return
+    }
+
+    try {
+      const notes = await this.notes()
+      this.setState({ notes })
+    } catch (e) {
+      alert(e)
+    }
+
+    this.setState({ isLoading: false })
+  }
+
+  renderNotesList (notes) {
+    function displayTitle (note) {
+      return !note.title ? '' : Parser(note.title.toUpperCase())
+    }
+    function displayBodyContent (note) {
+      return Parser(note.content.trim().split('\n')[0])
+    }
+    return (
+      <div>
+        <div className="grid-3x3">
+          { [{}].concat(notes).map((note, i) => {
+              return i !== 0
+                ? <div className="card card--borderless" key={note.noteId}>
+                    <section>
+                      <div className="card--hero">
+                        {
+                          note.attachmentURL
+                          ? <Image src={note.attachmentURL} thumbnail responsive alt=""/>
+                          : ''
+                        }
+                      </div>
+                    </section>
+                    <section>
+                      <div className="card--header">
+                        <h2>
+                          <a href={`/notes/${note.noteId}`}>
+                            { displayTitle(note) }
+                          </a>
+                        </h2>
+                      </div>
+                      <div className="card--body">
+                        {
+                          !note.title
+                            ? <a href={`/notes/${note.noteId}`}>{displayBodyContent(note)}</a>
+                            : displayBodyContent(note)
+                        }
+                      </div>
+                      <aside className="meta">
+                        {new Date(note.createdAt).toLocaleString()}
+                      </aside>
+                    </section>
+                  </div>
+
+                /* <ListGroupItem
+                  key={note.noteId}
+                  href={`/notes/${note.noteId}`}
+                  onClick={this.handleNoteClick}
+                  header={note.content.trim().split("\n")[0]}
+                >
+                  {"Created: " + new Date(note.createdAt).toLocaleString()}
+                </ListGroupItem>
+              */
+                : ''
+            })
+          }
+        </div>
+      </div>
+      )
+  }
+
+  renderLander () {
+    return (
+      <div>
+        <div className='Home--hero'>
+          <div className='lander'>
+            <h1 className="lander--title">Dark Times <div>Require</div> Dark Notes</h1>
+            <div className="lander--subtitle">
+              It's dangerous out there.
+              <div>Take this with you.</div>
+            </div>
+
+            <Link className="btn btn-primary btn-special btn-rounded" to='/signup'>Get Started</Link>
+          </div>
+
+          {/* <div className="Home--section">
+            <h1>Hello Darkness, my old friend</h1>
+            <p className="color-line--purple">It's great to see you</p>
+          </div> */}
+        </div>
+      </div>
+    )
+  }
+
+  renderNotes() {
+    return (
+      <div className="notes">
+        <div className="notes--page-header">
+          <PageHeader>Your Notes</PageHeader>
+          <h4>
+            <Link className="add-note" to="/notes/new">{"\uFF0B"} Add Note</Link>
+          </h4>
+          </div>
+        <ListGroup>
+          {!this.state.isLoading && this.renderNotesList(this.state.notes)}
+        </ListGroup>
+      </div>
+    );
+  }
+
+  render () {
+    return (
+      <div className='Home'>
+        {this.props.isAuthenticated ? this.renderNotes() : this.renderLander()}
+      </div>
+    )
+  }
+}

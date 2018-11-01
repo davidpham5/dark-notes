@@ -1,0 +1,152 @@
+$color1:  rgb(82, 153, 245);
+$color2: #56CCF2;
+
+$colorSuccess: #79ca54;
+$colorDanger: #C24C4C;
+$colorWarning:#f7a206;
+$colorInfo: #4753f5;
+
+@mixin buttonSolid ($colorStart, $colorEnd) {
+  background: $colorEnd;
+  background: -webkit-linear-gradient(to bottom, $colorStart, $colorEnd);
+  background: linear-gradient(to bottom, $colorStart, $colorEnd);
+
+  // border: 2px solid $colorStart;
+  border-image: linear-gradient(to bottom, $colorStart, $colorEnd) 1 100%;
+  &:hover {
+    background-color:darken($colorStart, 15%);
+  }
+}
+
+@mixin buttonGhost ($color) {
+  background-color: #fff;
+  color: $color;
+  border: 2px solid $color;
+  &:hover {
+    border-color: darken($color, 15%);
+  }
+}
+
+@mixin buttonLink ($color) {
+  background-color: #fff;
+  color: $color;
+  text-decoration: underline;
+  border: none;
+  &:hover {
+    color: darken($color, 15%);
+  }
+}
+
+.btn {
+  padding: 10px 15px;
+  border-radius: 4px;
+  color: #fff;
+  border-style: none;
+  cursor: pointer;
+  font-size: $base-font-size;
+  transition: background-color 0.2s ease-in-out;
+  &:hover {
+    transition: background-color 0.2s ease-in-out;
+  }
+  &:active {
+    position:relative;
+    top:1px;
+  }
+}
+
+.btn-primary {
+  @include buttonSolid($color1, $color2);
+}
+
+.btn-secondary {
+  @include buttonGhost($color2);
+}
+
+.btn-link {
+  @include buttonLink($color1);
+}
+
+.btn-success {
+  @include buttonSolid($colorSuccess, #45B649);
+  &.--secondary {
+    @include buttonGhost($colorSuccess);
+  }
+  &.--link {
+    @include buttonLink($colorSuccess);
+  }
+}
+
+.btn-danger {
+  @include buttonSolid(#bc4e9c, $colorDanger);
+  &.--secondary {
+    @include buttonGhost($colorDanger);
+  }
+  &.--link {
+    @include buttonLink($colorDanger);
+  }
+}
+
+.btn-warning {
+  @include buttonSolid(#fc4a1a, $colorWarning);
+  &.--secondary {
+    @include buttonGhost($colorWarning);
+  }
+  &.--link {
+    @include buttonLink($colorWarning);
+  }
+}
+
+.btn-info {
+  @include buttonSolid(#4b6cb7, $colorInfo);
+  &.--secondary {
+    @include buttonGhost($colorInfo);
+  }
+  &.--link {
+    @include buttonLink($colorInfo);
+  }
+}
+
+.btn-special {
+  // background: #fff; /* Old browsers */
+  // color: #000;
+  // border: 2px solid #000;
+  padding: 15px 30px; 
+  transition: all .2s ease-in-out; 
+  &:hover,
+  &:focus {
+    // background-color: #fff;
+    // color: #333;
+    // font-weight: 800;
+    // border: 4px solid #000;
+    transform: scale(1.1);
+    transition: all .2s ease-in-out; 
+  }
+}
+
+.btn-rounded {
+  border-radius: 20px;
+}
+
+.btn-squared {
+  border-radius: 0;
+}
+
+.App {
+  a.btn {
+    color: #fff;
+    &.btn-link {
+      color: $color1;
+    }
+  }
+}
+
+.form--action-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.UpdateNotes {
+  .form--action-buttons {
+    width: 18%;
+  }
+}

@@ -1,0 +1,15 @@
+@import './Layouts.scss';
+@import './Typography.scss';
+@import './Buttons.scss';
+@import './Box.scss';
+@import './Icons.scss';
+@import './Weather.scss';
+@import './Signup.scss';
+@import './LoaderButton.scss';
+@import './Home.scss';
+@import './Cards.scss';
+
+body {
+  font-family: $font-family;
+  font-size: $base-font-size;
+}

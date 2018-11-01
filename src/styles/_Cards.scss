@@ -1,0 +1,23 @@
+.card {
+  .card--header {
+    a {
+      h1, h2, p {
+        font-size: 1em;
+        font-weight: 100;
+        color: rgb(51, 51, 51);
+      }
+    }
+  }
+  .meta {
+    color: #aaa;
+    font-size: 12px;
+  }
+  .card--hero {
+    img {
+      max-height: 204px;
+      object-fit: cover;
+      width: 100%;
+      object-position: center;
+    }
+  }
+}

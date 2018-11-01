@@ -1,0 +1,94 @@
+.action-bar {
+  display: grid;
+  grid-gap: 15px;
+  grid-template-columns: 15% 15% 15%;
+}
+.showcase--btn {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 30px;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 70% 1fr;
+  grid-gap: 50px;
+  padding: 40px;
+}
+
+.wrapper--center {
+  display: flex;
+  justify-content: center;
+  .Login {
+    margin-top: 10vh;
+    width: 100%;
+    max-width: 400px;
+  }
+}
+
+.icon-group--summary {
+  display: flex;
+  align-items: center;
+  .climacon {
+    font-size: 1.5em;
+    margin: 0 5px 0 0;
+    line-height: 1;
+  }
+}
+
+.NewNote form {
+  padding-bottom: 15px;
+}
+
+.NewNote form textarea {
+  height: 300px;
+  font-size: 24px;
+}
+
+.AddNote,
+.UpdateNotes {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin: 15px 20px;
+}
+
+.grid-3x3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(300px, 1fr));
+  grid-template-rows: repeat(3, minmax(150px, 1fr));
+  grid-gap: 40px;
+  margin-top: 2em;
+}
+
+.medium-editor-element {
+  border: 1px solid #eee;
+  height: 100%;
+  padding: 10px;
+  min-height: 50px;
+  &:focus {
+    outline: none;
+  }
+  &.editor--title {
+    height: 100%;
+    margin-bottom: 1em;
+  }
+}
+
+@media screen and (max-width: 817px) {
+  .wrapper--center {
+    .Login {
+      padding: 20px;
+      margin-top: 2em;
+    }
+    .Signup {
+      margin-top: 2em;
+      width: 100%;
+      padding: 20px;
+    }
+  }
+  .AddNote,
+  .UpdateNotes {
+    width: 100%;
+  }
+}

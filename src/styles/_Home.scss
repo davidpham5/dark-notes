@@ -1,0 +1,72 @@
+.Home {
+  background-color: #fff;
+  width: 80%;
+}
+
+.Home .notes h4 {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  overflow: hidden;
+  line-height: 1.5;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.Home .notes p {
+  color: #666;
+}
+
+.card--header {
+  a {
+    color: #333;
+  }
+}
+
+.Home--hero {
+  margin-top: 2em;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 25px;
+}
+
+.lander--title {
+  font-size: 3em;
+  font-weight: 100;
+  margin-bottom: 1em;
+}
+
+.lander--subtitle {
+  margin-bottom: 3em;
+}
+
+.Home--section {
+  background-color: #000;
+  color: #fff;
+  padding: 20px;
+  font-family: courier;
+}
+
+.color-line--purple {
+  color: rgb(175, 1, 255);
+}
+
+.notes--page-header {
+  position: relative;
+  .add-note {
+    position: absolute;
+    right: 0;
+    top: 20px;
+  }
+}
+
+@media screen and (max-width: 817px) {
+  .Home--hero {
+    grid-template-columns: 1fr;
+  }
+  .Home {
+    width: 100%;
+    padding: 0 20px;
+  }
+  .grid-3x3 {
+    grid-template-columns: 1fr;
+  }
+}

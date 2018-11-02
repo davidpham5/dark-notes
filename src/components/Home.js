@@ -60,11 +60,11 @@ export default class Home extends Component {
                 ? <div className="card card--borderless" key={note.noteId}>
                     <section>
                       <div className="card--hero">
-                        {
+                        {/* {
                           note.attachmentURL
                           ? <Image src={note.attachmentURL} thumbnail responsive alt=""/>
                           : ''
-                        }
+                        } */}
                       </div>
                     </section>
                     <section>
@@ -110,19 +110,22 @@ export default class Home extends Component {
       <div>
         <div className='Home--hero'>
           <div className='lander'>
-            <h1 className="lander--title">Dark Times <div>Require</div> Dark Notes</h1>
-            <div className="lander--subtitle">
-              It's dangerous out there.
-              <div>Take this with you.</div>
-            </div>
+            <div className="lander-container">
+              <div></div>
+              <div>
+                <h1 className="lander--title">Dark Times <div>Require</div> Dark Notes</h1>
+                <div className="lander--subtitle">
+                  It's dangerous out there.
+                  <div>Take this with you.</div>
+                </div>
 
-            <Link className="btn btn-primary btn-special btn-rounded" to='/signup'>Get Started</Link>
+                <Link className="btn btn-primary btn-special btn-rounded" to='/signup'>Get Started</Link>
+              </div>
+            </div>
           </div>
 
-          {/* <div className="Home--section">
-            <h1>Hello Darkness, my old friend</h1>
-            <p className="color-line--purple">It's great to see you</p>
-          </div> */}
+          <div className="Home--section">
+          </div>
         </div>
       </div>
     )

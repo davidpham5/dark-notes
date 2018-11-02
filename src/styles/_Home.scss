@@ -27,7 +27,10 @@
   grid-template-columns: 1fr 1fr;
   grid-gap: 25px;
 }
-
+.lander-container {
+  display: grid;
+  grid-template-columns: 40% 1fr;
+}
 .lander--title {
   font-size: 3em;
   font-weight: 100;
@@ -39,10 +42,14 @@
 }
 
 .Home--section {
-  background-color: #000;
+  background-image: url('../assets/hero.jpeg');
   color: #fff;
   padding: 20px;
   font-family: courier;
+  background-size: cover;
+  width: 100%;
+  background-position: center bottom;
+  background-repeat: no-repeat;
 }
 
 .color-line--purple {
@@ -67,6 +74,10 @@
     padding: 0 20px;
   }
   .grid-3x3 {
+    grid-template-columns: 1fr;
+  }
+  .lander-container {
+    display: grid;
     grid-template-columns: 1fr;
   }
 }

@@ -143,10 +143,10 @@ class AddNote extends Component {
             />
           </FormGroup>
 
-          <FormGroup controlId="file">
+          {/* <FormGroup controlId="file">
             <ControlLabel>Attachment</ControlLabel>
             <FormControl onChange={this.handleFileChange} type="file" />
-          </FormGroup>
+          </FormGroup> */}
          <br/>
           <LoaderButton
             bsStyle='primary'

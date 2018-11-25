@@ -58,15 +58,15 @@ export default class Home extends Component {
           { [{}].concat(notes).map((note, i) => {
               return i !== 0
                 ? <div className="card card--borderless" key={note.noteId}>
-                    <section>
+                    {/* <section>
                       <div className="card--hero">
-                        {/* {
+                        {
                           note.attachmentURL
                           ? <Image src={note.attachmentURL} thumbnail responsive alt=""/>
                           : ''
-                        } */}
+                        }
                       </div>
-                    </section>
+                    </section> */}
                     <section>
                       <div className="card--header">
                         <h2>

@@ -206,7 +206,7 @@ class Notes extends Component {
                 componentClass="textarea"
               />*/}
             </FormGroup>
-            {this.state.note.attachment &&
+            {/* {this.state.note.attachment &&
               <FormGroup>
                 <ControlLabel>Attachment</ControlLabel>
                 <FormControl.Static style={{display: 'flex', flexDirection: 'column'}}>
@@ -216,14 +216,14 @@ class Notes extends Component {
                   <Image src={this.state.attachmentURL} thumbnail responsive alt=""/>
                 </FormControl.Static>
               </FormGroup>
-            }
+            } */}
 
-            <FormGroup controlId="file">
+            {/* <FormGroup controlId="file">
               {!this.state.note.attachment &&
                 <ControlLabel>Attachment</ControlLabel>
               }
               <FormControl onChange={this.handleFileChange} type="file" />
-            </FormGroup>
+            </FormGroup> */}
             <div className="form--action-buttons">
               <LoaderButton bsStyle="primary" bsSize="large" disabled={!this.validateForm()}
                 type="submit" isLoading={this.state.isLoading} text="Save" loadingText="Saving…"/>

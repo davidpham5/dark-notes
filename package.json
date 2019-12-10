@@ -29,10 +29,10 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
-    "html-react-parser": "^0.4.7",
+    "html-react-parser": "^0.10.0",
     "react-addons-test-utils": "^15.6.2"
   }
 }

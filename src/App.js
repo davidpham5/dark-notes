@@ -20,7 +20,7 @@ class App extends Component {
 
     var time = new Date()
     var isNight = time.toLocaleString('en-US', { hour: 'numeric', hour12: false })
-    //this.nightMode = isNight <= 19 // 7pm
+    this.nightMode = isNight <= 19 // 7pm
     this.userHasAuthenticated = this.userHasAuthenticated.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
   }

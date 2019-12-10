@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { PageHeader, ListGroup, ListGroupItem } from "react-bootstrap";
+import { PageHeader, ListGroup } from "react-bootstrap";
 import { API } from 'aws-amplify'
-import Parser from 'html-react-parser';
-import { Image } from "react-bootstrap";
+import parser from 'html-react-parser';
+
 import '../styles/App.css'
 import '../styles/Base.css'
 
@@ -47,10 +47,10 @@ export default class Home extends Component {
 
   renderNotesList (notes) {
     function displayTitle (note) {
-      return !note.title ? '' : Parser(note.title.toUpperCase())
+      return !note.title ? '' : parser(note.title.toUpperCase())
     }
     function displayBodyContent (note) {
-      return Parser(note.content.trim().split('\n')[0])
+      return parser(note.content.trim().split('\n')[0])
     }
     return (
       <div>

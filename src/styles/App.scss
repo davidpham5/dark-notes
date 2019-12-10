@@ -10,6 +10,10 @@
     main {
       background-color: #333;
     }
+    .Home,
+    .Home--hero {
+      background-color: #333;
+    }
     .top-nav-wide {
       a {
         color: #eee;
@@ -17,6 +21,10 @@
           color: #fff;
         }
       }
+    }
+    .card--header  h1,
+    .card--header h2 a div p {
+      color: #fff;
     }
   }
   a {

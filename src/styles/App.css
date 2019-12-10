@@ -9,10 +9,16 @@
     color: #fff; }
     .App.night-mode main {
       background-color: #333; }
+    .App.night-mode .Home,
+    .App.night-mode .Home--hero {
+      background-color: #333; }
     .App.night-mode .top-nav-wide a {
       color: #eee; }
       .App.night-mode .top-nav-wide a:hover {
         color: #fff; }
+    .App.night-mode .card--header h1,
+    .App.night-mode .card--header h2 a div p {
+      color: #fff; }
   .App a {
     color: #7AA1D2; }
 

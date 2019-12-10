@@ -2,10 +2,16 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { PageHeader, ListGroup } from "react-bootstrap";
 import { API } from 'aws-amplify'
-import parser from 'html-react-parser';
+// import parser from 'html-react-parser';
 
 import '../styles/App.css'
 import '../styles/Base.css'
+
+const parser = (content) => {
+  return (
+    <div dangerouslySetInnerHTML={{ __html: content }}></div>
+  )
+}
 
 export default class Home extends Component {
   constructor (props) {

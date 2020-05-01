@@ -12,3 +12,7 @@ In a separate bash window
 To deploy to serverless
 - `cd ../serverless/API`
 - `serverless deploy`
+
+To deploy to s3
+- `npm run build`
+- `aws s3 sync build/ s3://YOUR_S3_DEPLOY_BUCKET_NAME`

@@ -75,6 +75,10 @@
   }
 }
 
+.bg-yellow {
+  background-color: $primary-yellow;
+}
+
 @media screen and (max-width: 817px) {
   .wrapper--center {
     .Login {

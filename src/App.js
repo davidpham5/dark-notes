@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import './styles/App.css'
 import './styles/Base.css'
+import './assets/main.css'
 
 // import HackerNews from './components/HackerNews'
 // import Location from './models/Location'

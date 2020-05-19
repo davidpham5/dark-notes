@@ -63,6 +63,9 @@
     height: 100%;
     margin-bottom: 1em; }
 
+.bg-yellow {
+  background-color: #fdf767; }
+
 @media screen and (max-width: 817px) {
   .wrapper--center .Login {
     padding: 20px;
@@ -576,7 +579,7 @@ h1, h2, h3, h4, h5, h6 {
     transform: scale(1) rotate(360deg); } }
 
 .Home {
-  background-color: #fff;
+  background-color: #002f3c;
   width: 80%; }
 
 .Home .notes h4 {

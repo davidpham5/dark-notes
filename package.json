@@ -8,31 +8,37 @@
     "create-react-app": "^1.5.2",
     "node-sass-chokidar": "^1.3.4",
     "npm-run-all": "^4.1.2",
-    "react": "^16.4.1",
+    "react": "^16.13.1",
     "react-bootstrap": "^0.32.4",
-    "react-dom": "^16.4.1",
+    "react-dom": "^16.13.1",
     "react-medium-editor": "^1.8.1",
     "react-router-bootstrap": "^0.24.4",
-    "react-router-dom": "^4.3.1",
+    "react-router-dom": "^5.1.2",
     "react-scripts": "1.1.4",
+    "tailwindcss": "^1.4.1",
     "yargs": "^11.1.0",
     "yarn": "^1.7.0"
   },
   "scripts": {
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
+    "build-tailwind:css": "postcss src/assets/tailwind.css -o src/assets/main.css",
+    "watch-tailwind:css": "postcss src/assets/tailwind.css -o src/assets/main.css",
     "build": "react-scripts build",
     "start-js": "react-scripts start",
     "start": "react-scripts start",
     "build-js": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "start-with-css": "npm run watch-tailwind:css && react-scripts start"
   },
   "devDependencies": {
+    "autoprefixer": "^9.7.6",
     "axios": "^0.18.1",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "html-react-parser": "^0.10.0",
+    "postcss-cli": "^7.1.1",
     "react-addons-test-utils": "^15.6.2"
   }
 }

@@ -1,3 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 .App header {
   display: flex;
   justify-content: center; }
@@ -5,13 +8,13 @@
 .App {
   min-height: 100vh; }
   .App.night-mode {
-    background-color: #333;
+    background-color: #002f3c;
     color: #fff; }
     .App.night-mode main {
-      background-color: #333; }
+      background-color: #002f3c; }
     .App.night-mode .Home,
     .App.night-mode .Home--hero {
-      background-color: #333; }
+      background-color: #002f3c; }
     .App.night-mode .top-nav-wide a {
       color: #eee; }
       .App.night-mode .top-nav-wide a:hover {
@@ -24,7 +27,7 @@
 
 .App-header {
   min-height: 128px;
-  background-color: #fff;
+  background-color: #002f3c;
   border-bottom: 5px solid #000; }
 
 .App-title {
@@ -39,7 +42,7 @@
     font-size: 2.1rem; }
   .App-title a {
     cursor: pointer;
-    color: #333; }
+    color: #fdf767; }
 
 .top-nav-wide {
   display: block;

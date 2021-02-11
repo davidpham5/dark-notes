@@ -12,10 +12,6 @@ function Login({ userHasAuthenticated }) {
     isLoading: false,
   });
 
-  function validateForm() {
-    return state.email.length > 0 && state.password.length > 0;
-  }
-
   function handleChange(event) {
     return setState({
       ...state,
@@ -35,7 +31,10 @@ function Login({ userHasAuthenticated }) {
       setState({ isLoading: false });
     }
   }
-
+  function validateForm() {
+    const { email, password } = state;
+    return state.email && email.length > 0 && password.length > 0;
+  }
   return (
     <div className="Login">
       <form onSubmit={handleSubmit}>
@@ -63,7 +62,7 @@ function Login({ userHasAuthenticated }) {
         </div>
         <button
           className="btn btn-primary"
-          // disabled={!validateForm()}
+          disabled={!validateForm()}
           type="submit"
         >
           Login

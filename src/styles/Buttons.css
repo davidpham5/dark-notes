@@ -1,12 +1,16 @@
 .btn {
   padding: 10px 15px;
   border-radius: 4px;
-  color: #fff; }
+  color: #fff;
+}
 
 .btn-primary {
-  background-color: #66CBF7; }
-  .btn-primary:hover {
-    background-color: #C0DDF0; }
-  .btn-primary:active {
-    position: relative;
-    top: 1px; }
+  background-color: #66cbf7;
+}
+.btn-primary:hover {
+  background-color: #c0ddf0;
+}
+.btn-primary:active {
+  position: relative;
+  top: 1px;
+}

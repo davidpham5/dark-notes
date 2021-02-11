@@ -111,14 +111,15 @@ export default class Home extends Component {
               <div className="bg-yellow mx-4 mb-4 lg:mb-16 lg:mx-12 xl:mx-16 relative">
                 <div className="max-w-lg px-2 mx-auto py-20">
                   <div className="bg-dark mt-4 lg:mt-0 leading-none w-full text-center p-1 -rotate-3 text-3xl font-hand text-yellow">
-                      Write something. Avoid the birds.
+                    Write something. Avoid the birds.
                   </div>
-
                 </div>
                 <p className="mt-16 text-xl">
-                    Believe in you. Not your label.
-                    Are you an aspiring designer, developer, marketer, or gourmet donut maker? Do you need to find a way to make your designs way less boring and more memorable? Well then, this course is for you.
-                  </p>
+                  Believe in you. Not your label. Are you an aspiring designer,
+                  developer, marketer, or gourmet donut maker? Do you need to
+                  find a way to make your designs way less boring and more
+                  memorable? Well then, this course is for you.
+                </p>
               </div>
             </div>
           </div>

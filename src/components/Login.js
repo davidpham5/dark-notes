@@ -1,55 +1,56 @@
-import React, { Component } from 'react'
-import { Auth } from "aws-amplify"
+import React, { Component } from "react";
+import { Auth } from "aws-amplify";
 // import Button from './Buttons/Btn'
-import '../styles/App.css'
-import '../styles/Base.css'
+import "../styles/App.css";
+import "../styles/Base.css";
 
 class Login extends Component {
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
 
     this.state = {
-      email: '',
-      password: '',
-      message: '',
-      isLoading: false
-    }
-    this.validateForm = this.validateForm.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+      email: "",
+      password: "",
+      message: "",
+      isLoading: false,
+    };
+    this.validateForm = this.validateForm.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  validateForm () {
-    return this.state.email.length > 0 && this.state.password.length > 0
+  validateForm() {
+    return this.state.email.length > 0 && this.state.password.length > 0;
   }
 
-  handleChange (event) {
+  handleChange(event) {
     return this.setState({
-      [event.target.id]: event.target.value
-    })
+      [event.target.id]: event.target.value,
+    });
   }
 
-  async handleSubmit (event) {
-    event.preventDefault()
-    this.setState({ isLoading: true })
+  async handleSubmit(event) {
+    event.preventDefault();
+    this.setState({ isLoading: true });
 
     try {
-      await Auth.signIn(this.state.email, this.state.password)
-      this.props.userHasAuthenticated(true)
+      await Auth.signIn(this.state.email, this.state.password);
+      this.props.userHasAuthenticated(true);
     } catch (error) {
-      this.setState({message: error.message})
-      this.setState({ isLoading: false })
+      this.setState({ message: error.message });
+      this.setState({ isLoading: false });
     }
   }
 
-  render () {
+  render() {
     return (
       <div className="Login">
         <form onSubmit={this.handleSubmit}>
-          {this.state.message
-            ? <h3 className="alert">{this.state.message}</h3>
-            : ''
-          }
+          {this.state.message ? (
+            <h3 className="alert">{this.state.message}</h3>
+          ) : (
+            ""
+          )}
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
@@ -69,13 +70,17 @@ class Login extends Component {
               type="password"
             />
           </div>
-          <button className="btn btn-primary" disabled={!this.validateForm()} type="submit">
+          <button
+            className="btn btn-primary"
+            disabled={!this.validateForm()}
+            type="submit"
+          >
             Login
           </button>
         </form>
       </div>
-    )
+    );
   }
 }
 
-export default Login
+export default Login;

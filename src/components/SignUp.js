@@ -3,7 +3,7 @@ import {
   HelpBlock,
   FormGroup,
   FormControl,
-  ControlLabel
+  ControlLabel,
 } from "react-bootstrap";
 // import Button from "../components/Buttons/Btn";
 import { Auth } from "aws-amplify";
@@ -19,16 +19,16 @@ export default class Signup extends Component {
       password: "",
       confirmPassword: "",
       confirmationCode: "",
-      newUser: null
+      newUser: null,
     };
 
-    this.validateForm = this.validateForm.bind(this)
-    this.validateConfirmationForm = this.validateConfirmationForm.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleConfirmationSubmit = this.handleConfirmationSubmit.bind(this)
-    this.renderConfirmationForm = this.renderConfirmationForm.bind(this)
-    this.renderForm = this.renderForm.bind(this)
+    this.validateForm = this.validateForm.bind(this);
+    this.validateConfirmationForm = this.validateConfirmationForm.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleConfirmationSubmit = this.handleConfirmationSubmit.bind(this);
+    this.renderConfirmationForm = this.renderConfirmationForm.bind(this);
+    this.renderForm = this.renderForm.bind(this);
   }
 
   validateForm() {
@@ -43,13 +43,13 @@ export default class Signup extends Component {
     return this.state.confirmationCode.length > 0;
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     this.setState({
-      [event.target.id]: event.target.value
+      [event.target.id]: event.target.value,
     });
-  }
+  };
 
-  handleSubmit = async event => {
+  handleSubmit = async (event) => {
     event.preventDefault();
 
     this.setState({ isLoading: true });
@@ -57,19 +57,19 @@ export default class Signup extends Component {
     try {
       const newUser = await Auth.signUp({
         username: this.state.email,
-        password: this.state.password
+        password: this.state.password,
       });
       this.setState({
-        newUser
+        newUser,
       });
     } catch (e) {
       alert(e.message);
     }
 
     this.setState({ isLoading: false });
-  }
+  };
 
-  handleConfirmationSubmit = async event => {
+  handleConfirmationSubmit = async (event) => {
     event.preventDefault();
 
     this.setState({ isLoading: true });
@@ -84,8 +84,7 @@ export default class Signup extends Component {
       alert(e.message);
       this.setState({ isLoading: false });
     }
-  }
-
+  };
 
   renderConfirmationForm() {
     return (

@@ -1,8 +1,8 @@
-import React from 'react'
-import './styles/Base.css'
+import React from "react";
+import "./styles/Base.css";
 
 class ShoppingList extends React.Component {
-  render () {
+  render() {
     return (
       <div className="shopping-list">
         <h1>Shopping List for {this.props.name}</h1>
@@ -12,8 +12,8 @@ class ShoppingList extends React.Component {
           <li>Pork</li>
         </ul>
       </div>
-    )
+    );
   }
 }
 
-export default ShoppingList
+export default ShoppingList;

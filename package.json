@@ -40,7 +40,18 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "html-react-parser": "^0.10.0",
+    "husky": ">=4",
+    "lint-staged": ">=10",
     "postcss-cli": "^7.1.1",
+    "prettier": "2.2.1",
     "react-addons-test-utils": "^15.6.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,css,md}": "prettier --write"
   }
 }

@@ -26,13 +26,13 @@
         }
       }
     }
-    .card--header  h1,
+    .card--header h1,
     .card--header h2 a div p {
       color: #fff;
     }
   }
   a {
-    color: #7AA1D2;
+    color: #7aa1d2;
   }
 }
 .App-header {
@@ -63,7 +63,7 @@
     cursor: pointer;
     // color: #fff;
     // color: #333;
-    color: #fdf767 ;
+    color: #fdf767;
   }
 }
 .top-nav-wide {
@@ -81,7 +81,7 @@
     text-decoration: none;
     color: #333;
     &:hover {
-      color: #7AA1D2;
+      color: #7aa1d2;
     }
   }
 }
@@ -90,8 +90,12 @@
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .react-list {
@@ -171,7 +175,7 @@ input {
 
 .button-active {
   border-radius: 0;
-  border-bottom: 1px solid #38BB6C;
+  border-bottom: 1px solid #38bb6c;
 }
 
 .form-group {
@@ -182,7 +186,6 @@ input {
 }
 
 .form-controls {
-
 }
 .input-group {
   display: flex;

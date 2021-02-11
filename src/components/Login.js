@@ -1,88 +1,76 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { Auth } from "aws-amplify";
-// import Button from './Buttons/Btn'
+
 import "../styles/App.css";
 import "../styles/Base.css";
 
-class Login extends Component {
-  constructor(props) {
-    super(props);
+function Login({ userHasAuthenticated }) {
+  const [state, setState] = useState({
+    email: "",
+    password: "",
+    message: "",
+    isLoading: false,
+  });
 
-    this.state = {
-      email: "",
-      password: "",
-      message: "",
-      isLoading: false,
-    };
-    this.validateForm = this.validateForm.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+  function validateForm() {
+    return state.email.length > 0 && state.password.length > 0;
   }
 
-  validateForm() {
-    return this.state.email.length > 0 && this.state.password.length > 0;
-  }
-
-  handleChange(event) {
-    return this.setState({
+  function handleChange(event) {
+    return setState({
+      ...state,
       [event.target.id]: event.target.value,
     });
   }
 
-  async handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    this.setState({ isLoading: true });
+    setState({ isLoading: true });
 
     try {
-      await Auth.signIn(this.state.email, this.state.password);
-      this.props.userHasAuthenticated(true);
+      await Auth.signIn(state.email, state.password);
+      userHasAuthenticated(true);
     } catch (error) {
-      this.setState({ message: error.message });
-      this.setState({ isLoading: false });
+      setState({ message: error.message });
+      setState({ isLoading: false });
     }
   }
 
-  render() {
-    return (
-      <div className="Login">
-        <form onSubmit={this.handleSubmit}>
-          {this.state.message ? (
-            <h3 className="alert">{this.state.message}</h3>
-          ) : (
-            ""
-          )}
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              className="p-2 mb-5"
-              id="email"
-              autoFocus
-              type="email"
-              value={this.state.email}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              className="p-2 mb-5"
-              id="password"
-              value={this.state.password}
-              onChange={this.handleChange}
-              type="password"
-            />
-          </div>
-          <button
-            className="btn btn-primary"
-            disabled={!this.validateForm()}
-            type="submit"
-          >
-            Login
-          </button>
-        </form>
-      </div>
-    );
-  }
+  return (
+    <div className="Login">
+      <form onSubmit={handleSubmit}>
+        {state.message ? <h3 className="alert">{state.message}</h3> : ""}
+        <div className="form-group">
+          <label htmlFor="email">Email</label>
+          <input
+            className="p-2 mb-5"
+            id="email"
+            autoFocus
+            type="email"
+            value={state.email}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
+          <input
+            className="p-2 mb-5"
+            id="password"
+            value={state.password}
+            onChange={handleChange}
+            type="password"
+          />
+        </div>
+        <button
+          className="btn btn-primary"
+          // disabled={!validateForm()}
+          type="submit"
+        >
+          Login
+        </button>
+      </form>
+    </div>
+  );
 }
 
 export default Login;

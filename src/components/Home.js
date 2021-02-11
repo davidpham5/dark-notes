@@ -17,14 +17,14 @@ export default function Home({ isAuthenticated }) {
     notes: [],
   });
 
-  const handleNoteClick = (event) => {
+  function handleNoteClick(event) {
     event.preventDefault();
     this.props.history.push(event.currentTarget.getAttribute("href"));
-  };
+  }
 
-  const notes = () => {
+  function notes() {
     return API.get("notes", "/notes");
-  };
+  }
 
   const getNotes = async () => {
     try {
@@ -107,24 +107,18 @@ export default function Home({ isAuthenticated }) {
 
   function renderLander() {
     return (
-      <div>
-        <div className="">
-          <div className="">
-            <div className="lander-container leading-tight">
-              <h1 className="lander--title ">
-                Dark Times <div>Require</div> Dark Notes
-              </h1>
-              <div className="Home--section h-80"></div>
-              <div className="md:w-auto">
-                <Link
-                  className="btn btn-primary btn-special btn-rounded "
-                  to="/signup"
-                >
-                  Get Started
-                </Link>
-              </div>
-            </div>
-          </div>
+      <div className="lander-container leading-tight">
+        <h1 className="lander--title ">
+          Dark Times <div>Require</div> Dark Notes
+        </h1>
+        <div className="Home--section h-80"></div>
+        <div className="md:w-auto">
+          <Link
+            className="btn btn-primary btn-special btn-rounded "
+            to="/signup"
+          >
+            Get Started
+          </Link>
         </div>
       </div>
     );

@@ -119,6 +119,7 @@ export default class Signup extends Component {
         <FormGroup controlId="email" bsSize="large">
           <ControlLabel>Email</ControlLabel>
           <FormControl
+            className="p-2 mb-5"
             autoFocus
             type="email"
             value={this.state.email}
@@ -128,6 +129,7 @@ export default class Signup extends Component {
         <FormGroup controlId="password" bsSize="large">
           <ControlLabel>Password</ControlLabel>
           <FormControl
+            className="p-2 mb-5"
             value={this.state.password}
             onChange={this.handleChange}
             type="password"
@@ -136,6 +138,7 @@ export default class Signup extends Component {
         <FormGroup controlId="confirmPassword" bsSize="large">
           <ControlLabel>Confirm Password</ControlLabel>
           <FormControl
+            className="p-2 mb-5"
             value={this.state.confirmPassword}
             onChange={this.handleChange}
             type="password"

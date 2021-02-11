@@ -54,6 +54,7 @@ class Login extends Component {
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
+              className="p-2 mb-5"
               id="email"
               autoFocus
               type="email"
@@ -64,6 +65,7 @@ class Login extends Component {
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <input
+              className="p-2 mb-5"
               id="password"
               value={this.state.password}
               onChange={this.handleChange}

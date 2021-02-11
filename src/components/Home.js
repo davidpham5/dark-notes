@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { PageHeader, ListGroup } from "react-bootstrap";
 import { API } from "aws-amplify";
@@ -11,37 +11,40 @@ const parser = (content) => {
   return <div dangerouslySetInnerHTML={{ __html: content }}></div>;
 };
 
-export default class Home extends Component {
-  state = {
+export default function Home({ isAuthenticated }) {
+  const [state, setState] = useState({
     loading: false,
     notes: [],
-  };
+  });
 
-  handleNoteClick = (event) => {
+  const handleNoteClick = (event) => {
     event.preventDefault();
     this.props.history.push(event.currentTarget.getAttribute("href"));
   };
 
-  notes() {
+  const notes = () => {
     return API.get("notes", "/notes");
-  }
+  };
 
-  async componentDidMount() {
-    if (!this.props.isAuthenticated) {
-      return;
-    }
-
+  const getNotes = async () => {
     try {
-      const notes = await this.notes();
-      this.setState({ notes });
+      const notes = await notes();
+      setState({ notes });
     } catch (e) {
       alert(e);
     }
+  };
 
-    this.setState({ isLoading: false });
-  }
+  useEffect(() => {
+    if (!isAuthenticated) {
+      return;
+    }
 
-  renderNotesList(notes) {
+    getNotes();
+    setState({ isLoading: false });
+  }, [isAuthenticated]);
+
+  function renderNotesList(notes) {
     function displayTitle(note) {
       return !note.title ? "" : parser(note.title.toUpperCase());
     }
@@ -102,7 +105,7 @@ export default class Home extends Component {
     );
   }
 
-  renderLander() {
+  function renderLander() {
     return (
       <div>
         <div className="">
@@ -112,7 +115,7 @@ export default class Home extends Component {
                 Dark Times <div>Require</div> Dark Notes
               </h1>
               <div className="Home--section h-80"></div>
-              <div className="md:w-auto mx-4">
+              <div className="md:w-auto">
                 <Link
                   className="btn btn-primary btn-special btn-rounded "
                   to="/signup"
@@ -127,7 +130,7 @@ export default class Home extends Component {
     );
   }
 
-  renderNotes() {
+  function renderNotes() {
     return (
       <div className="notes">
         <div className="notes--page-header">
@@ -139,17 +142,15 @@ export default class Home extends Component {
           </h4>
         </div>
         <ListGroup>
-          {!this.state.isLoading && this.renderNotesList(this.state.notes)}
+          {!state.isLoading && renderNotesList(this.state.notes)}
         </ListGroup>
       </div>
     );
   }
 
-  render() {
-    return (
-      <div className="container">
-        {this.props.isAuthenticated ? this.renderNotes() : this.renderLander()}
-      </div>
-    );
-  }
+  return (
+    <div className="container">
+      {isAuthenticated ? renderNotes() : renderLander()}
+    </div>
+  );
 }

@@ -107,21 +107,19 @@ export default class Home extends Component {
       <div>
         <div className="">
           <div className="">
-            <div className="lander-container">
-              <h1 className="lander--title">
+            <div className="lander-container leading-tight">
+              <h1 className="lander--title ">
                 Dark Times <div>Require</div> Dark Notes
               </h1>
-              <div className="lander--subtitle Home--section">
-                It's dangerous out there.
-                <div>Take this with you.</div>
+              <div className="Home--section h-80"></div>
+              <div className="md:w-auto mx-4">
+                <Link
+                  className="btn btn-primary btn-special btn-rounded "
+                  to="/signup"
+                >
+                  Get Started
+                </Link>
               </div>
-
-              <Link
-                className="btn btn-primary btn-special btn-rounded"
-                to="/signup"
-              >
-                Get Started
-              </Link>
             </div>
           </div>
         </div>

@@ -3,9 +3,6 @@ import "./styles/App.css";
 import "./styles/Base.css";
 import "./assets/main.css";
 
-// import HackerNews from './components/HackerNews'
-// import Location from './models/Location'
-// import Weather from './models/Weather'
 import { Link, withRouter } from "react-router-dom";
 import Routes from "./Routes";
 import { Auth } from "aws-amplify";
@@ -48,7 +45,7 @@ class App extends Component {
       this.userHasAuthenticated(true);
     } catch (e) {
       if (e !== "No current user") {
-        alert(e);
+        // alert(e);
       }
     }
     this.setState({ isAuthenticating: false });
@@ -62,54 +59,35 @@ class App extends Component {
     };
     return (
       !this.state.isAuthenticating && (
-        <div className={`App ${this.nightMode ? "night-mode" : ""}`}>
-          <header className="App-header">
-            <h1 className="App-title">
-              <Link to="/">
-                {/* dpham<span className="symbol">&nbsp;♥&nbsp;</span>
-                Home of HyperText Products */}
-                Dark Note
-              </Link>
-            </h1>
+        <div className={` ${this.nightMode ? "night-mode" : ""}`}>
+          <header className="neu-shadow top-0 z-40 lg:z-50 w-full max-w-8xl mx-auto bg-white flex-none flex justify-between">
+            <div className="container mx-auto grid grid-cols-2">
+              <aside className="logo text-3xl p-3">
+                <Link to="/">Dark Notes</Link>
+              </aside>
+              <nav className="flex justify-end">
+                {this.state.isAuthenticated ? (
+                  <div>
+                    <Link to="/login" onClick={this.handleLogout}>
+                      Logout
+                    </Link>
+                  </div>
+                ) : (
+                  <ul className="flex justify-evenly items-center p-1">
+                    <li className="p-1 pr-3 text-md">
+                      <Link to="/signup">Sign Up</Link>
+                    </li>
+                    <li className="p-1 text-md">
+                      <Link to="/login">Login</Link>
+                    </li>
+                  </ul>
+                )}
+              </nav>
+            </div>
           </header>
-          <div className="top-nav-wide">
-            {this.state.isAuthenticated ? (
-              <div>
-                <Link to="/">Home</Link>
-                <Link to="/login" onClick={this.handleLogout}>
-                  Logout
-                </Link>
-              </div>
-            ) : (
-              <Fragment>
-                <Link to="/">Home</Link>
-                <Link to="/signup">Signup</Link>
-                <Link to="/login">Login</Link>
-              </Fragment>
-            )}
-            <br />
-          </div>
 
           <div className="wrapper--center">
             <Routes bindings={authProps} />
-          </div>
-          <div className="wrapper">
-            {/* {this.state.isAuthenticated
-              ? <HackerNews />
-              : ''
-            } */}
-            <aside className="sidebar">
-              <div className="form-controls">
-                {/* {this.state.isAuthenticated
-                  ? <Location />
-                  : ''
-                }
-                {this.state.isAuthenticated
-                  ? <Weather />
-                  : ''
-                } */}
-              </div>
-            </aside>
           </div>
         </div>
       )

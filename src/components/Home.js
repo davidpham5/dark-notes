@@ -106,29 +106,12 @@ export default class Home extends Component {
     return (
       <div>
         <div className="">
-          <div className="lander">
-            <div className="container mx-auto">
-              <div className="bg-yellow mx-4 mb-4 lg:mb-16 lg:mx-12 xl:mx-16 relative">
-                <div className="max-w-lg px-2 mx-auto py-20">
-                  <div className="bg-dark mt-4 lg:mt-0 leading-none w-full text-center p-1 -rotate-3 text-3xl font-hand text-yellow">
-                    Write something. Avoid the birds.
-                  </div>
-                </div>
-                <p className="mt-16 text-xl">
-                  Believe in you. Not your label. Are you an aspiring designer,
-                  developer, marketer, or gourmet donut maker? Do you need to
-                  find a way to make your designs way less boring and more
-                  memorable? Well then, this course is for you.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="Home--section">
+          <div className="">
             <div className="lander-container">
               <h1 className="lander--title">
                 Dark Times <div>Require</div> Dark Notes
               </h1>
-              <div className="lander--subtitle">
+              <div className="lander--subtitle Home--section">
                 It's dangerous out there.
                 <div>Take this with you.</div>
               </div>
@@ -166,7 +149,7 @@ export default class Home extends Component {
 
   render() {
     return (
-      <div className="Home">
+      <div className="container">
         {this.props.isAuthenticated ? this.renderNotes() : this.renderLander()}
       </div>
     );

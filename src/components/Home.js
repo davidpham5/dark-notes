@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { PageHeader, ListGroup } from "react-bootstrap";
 import { API } from "aws-amplify";
+import React, { useEffect, useState } from "react";
+import { ListGroup, PageHeader } from "react-bootstrap";
+import { Link } from "react-router-dom";
+
 // import parser from 'html-react-parser';
 
 import "../styles/App.css";
@@ -107,11 +108,18 @@ export default function Home({ isAuthenticated }) {
 
   function renderLander() {
     return (
-      <div className="lander-container leading-tight">
-        <h1 className="lander--title ">
-          Dark Times <div>Require</div> Dark Notes
-        </h1>
-        <div className="Home--section h-80"></div>
+      <div className="lander-container leading-tight h-screen">
+        <section className="mt-16">
+          <h1 className="lander--title font-black text-9xl">
+            Dark Times <div>Require</div> Dark Notes
+          </h1>
+          <p className="font-light text-2xl pr-5">
+            Millions of companies of all sizes—from startups to Fortune 500s—use
+            Dark Notes' software and APIs to accept forgiveness, send thoughts,
+            and manage their biggest dreams online.{" "}
+          </p>
+        </section>
+        <div className="Home--section h-80 neu-shadow rounded-md border-gray-600"></div>
         <div className="md:w-auto">
           <Link
             className="btn btn-primary btn-special btn-rounded "
@@ -143,7 +151,7 @@ export default function Home({ isAuthenticated }) {
   }
 
   return (
-    <div className="container">
+    <div className="container mt-32">
       {isAuthenticated ? renderNotes() : renderLander()}
     </div>
   );

@@ -1,74 +1,73 @@
-import React, { Component, Fragment } from "react";
+import { Auth } from "aws-amplify";
+import React, { useEffect, useState } from "react";
+import { Link, withRouter } from "react-router-dom";
+
+import Routes from "./Routes";
+
+import "./assets/main.css";
 import "./styles/App.css";
 import "./styles/Base.css";
-import "./assets/main.css";
 
-import { Link, withRouter } from "react-router-dom";
-import Routes from "./Routes";
-import { Auth } from "aws-amplify";
+function App({ history }) {
+  const [state, setState] = useState({
+    isAuthenticated: false,
+    isAuthenticating: true,
+  });
 
-class App extends Component {
-  constructor(props) {
-    super(props);
+  let time = new Date();
+  let isNight = time.toLocaleString("en-US", {
+    hour: "numeric",
+    hour12: false,
+  });
 
-    this.state = {
-      isAuthenticated: false,
-      isAuthenticating: true,
-    };
-
-    var time = new Date();
-    var isNight = time.toLocaleString("en-US", {
-      hour: "numeric",
-      hour12: false,
-    });
-    this.nightMode = isNight <= 19; // 7pm
-    this.userHasAuthenticated = this.userHasAuthenticated.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
-  }
-
-  userHasAuthenticated(auth) {
-    this.setState({
+  function userHasAuthenticated(auth) {
+    return setState({
       isAuthenticated: auth,
     });
   }
 
-  async handleLogout(event) {
+  async function handleLogout(event) {
+    event.preventDefault();
     await Auth.signOut();
 
-    this.userHasAuthenticated(false);
-    this.props.history.push("/login");
+    userHasAuthenticated(false);
+    history.push("/login");
   }
-
-  async componentDidMount() {
+  async function handleAuth() {
     try {
       await Auth.currentSession();
-      this.userHasAuthenticated(true);
+      userHasAuthenticated(true);
     } catch (e) {
       if (e !== "No current user") {
         // alert(e);
       }
     }
-    this.setState({ isAuthenticating: false });
   }
 
-  render() {
-    const { isAuthenticated } = this.state;
+  useEffect(() => {
+    handleAuth();
+    setState({ isAuthenticating: false });
+  }, [Auth]);
+
+  function renderApp() {
+    const { isAuthenticated, isAuthenticating, nightMode } = state;
     const authProps = {
-      isAuthenticated: isAuthenticated,
-      userHasAuthenticated: this.userHasAuthenticated,
+      isAuthenticated,
+      userHasAuthenticated,
     };
+
     return (
-      !this.state.isAuthenticating && (
-        <div className={` ${this.nightMode ? "night-mode" : ""}`}>
+      !isAuthenticating && (
+        <div className={`${nightMode ? "night-mode" : ""}`}>
           <header className="neu-shadow top-0 z-40 lg:z-50 w-full max-w-8xl mx-auto bg-white flex-none flex justify-between mb-5">
             <div className="container mx-auto grid grid-cols-2">
               <aside className="logo text-3xl p-3">
                 <Link to="/">Dark Notes</Link>
               </aside>
               <nav className="flex justify-end">
-                {this.state.isAuthenticated ? (
+                {isAuthenticated ? (
                   <div>
-                    <Link to="/login" onClick={this.handleLogout}>
+                    <Link to="/login" onClick={handleLogout}>
                       Logout
                     </Link>
                   </div>
@@ -93,6 +92,8 @@ class App extends Component {
       )
     );
   }
+
+  return renderApp();
 }
 
 export default withRouter(App);

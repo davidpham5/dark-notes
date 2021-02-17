@@ -58,8 +58,8 @@ function App({ history }) {
 
     return (
       !isAuthenticating && (
-        <div className={`${nightMode ? "night-mode" : ""}`}>
-          <header className="neu-shadow top-0 z-40 lg:z-50 w-full max-w-8xl mx-auto bg-white flex-none flex justify-between mb-5">
+        <div className="bg-gray-800 text-white dark:bg-gray-800">
+          <header className="neu-shadow top-0 z-40 lg:z-50 w-full max-w-8xl mx-auto bg-white text-black flex-none flex justify-between mb-5">
             <div className="container mx-auto grid grid-cols-2">
               <aside className="logo text-3xl p-3">
                 <Link to="/">Dark Notes</Link>

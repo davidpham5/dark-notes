@@ -113,13 +113,13 @@ export default function Home({ isAuthenticated }) {
           <h1 className="lander--title font-black text-9xl">
             Dark Times <div>Require</div> Dark Notes
           </h1>
-          <p className="font-light text-2xl pr-5">
+          <p className="font-light text-2xl pr-5 mr-5">
             Millions of companies of all sizes—from startups to Fortune 500s—use
             Dark Notes' software and APIs to accept forgiveness, send thoughts,
             and manage their biggest dreams online.{" "}
           </p>
         </section>
-        <div className="Home--section h-80 neu-shadow rounded-md border-gray-600"></div>
+        <div className="Home--section h-80 rounded-md border-gray-600"></div>
         <div className="md:w-auto">
           <Link
             className="btn btn-primary btn-special btn-rounded "

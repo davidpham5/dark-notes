@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import {
-  HelpBlock,
+  // HelpBlock,
   FormGroup,
   FormControl,
-  ControlLabel,
+  // label,
 } from "react-bootstrap";
 
 import { Auth } from "aws-amplify";
@@ -77,7 +77,7 @@ export default function Signup({ userHasAuthenticated, history }) {
     return (
       <form onSubmit={handleConfirmationSubmit}>
         <FormGroup controlId="confirmationCode" bsSize="large">
-          <ControlLabel>Confirmation Code</ControlLabel>
+          <label>Confirmation Code</label>
           <FormControl
             autoFocus
             type="tel"
@@ -104,7 +104,7 @@ export default function Signup({ userHasAuthenticated, history }) {
     return (
       <form onSubmit={handleSubmit}>
         <FormGroup controlId="email" bsSize="large">
-          <ControlLabel>Email</ControlLabel>
+          <label>Email</label>
           <FormControl
             className="p-2 mb-5"
             autoFocus
@@ -114,7 +114,7 @@ export default function Signup({ userHasAuthenticated, history }) {
           />
         </FormGroup>
         <FormGroup controlId="password" bsSize="large">
-          <ControlLabel>Password</ControlLabel>
+          <label>Password</label>
           <FormControl
             className="p-2 mb-5"
             value={state.password}
@@ -123,7 +123,7 @@ export default function Signup({ userHasAuthenticated, history }) {
           />
         </FormGroup>
         <FormGroup controlId="confirmPassword" bsSize="large">
-          <ControlLabel>Confirm Password</ControlLabel>
+          <label>Confirm Password</label>
           <FormControl
             className="p-2 mb-5"
             value={state.confirmPassword}

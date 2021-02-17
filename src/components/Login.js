@@ -1,75 +1,52 @@
 import React, { useState } from "react";
-import { Auth } from "aws-amplify";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
-import "../styles/App.css";
-import "../styles/Base.css";
+export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-function Login({ userHasAuthenticated }) {
-  const [state, setState] = useState({
-    email: "",
-    password: "",
-    message: "",
-    isLoading: false,
-  });
-
-  function handleChange(event) {
-    return setState({
-      ...state,
-      [event.target.id]: event.target.value,
-    });
+  function validateForm() {
+    return email.length > 0 && password.length > 0;
   }
 
   async function handleSubmit(event) {
     event.preventDefault();
-    setState({ isLoading: true });
 
     try {
-      await Auth.signIn(state.email, state.password);
-      userHasAuthenticated(true);
-    } catch (error) {
-      setState({ message: error.message });
-      setState({ isLoading: false });
+      await Auth.signIn(email, password);
+      alert("Logged in");
+    } catch (e) {
+      alert(e.message);
     }
   }
-  function validateForm() {
-    const { email, password } = state;
-    return state.email && email.length > 0 && password.length > 0;
-  }
+
   return (
     <div className="Login">
-      <form onSubmit={handleSubmit}>
-        {state.message ? <h3 className="alert">{state.message}</h3> : ""}
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input
-            className="p-2 mb-5"
-            id="email"
+      <Form onSubmit={handleSubmit}>
+        <Form.Group size="lg" controlId="email" className="mb-4">
+          <Form.Label>Email</Form.Label>
+          <Form.Control
             autoFocus
             type="email"
-            value={state.email}
-            onChange={handleChange}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="p-2"
           />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            className="p-2 mb-5"
-            id="password"
-            value={state.password}
-            onChange={handleChange}
+        </Form.Group>
+        <Form.Group size="lg" controlId="password" className="mb-4">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
             type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="p-2"
           />
-        </div>
-        <button
-          className="btn btn-primary"
-          disabled={!validateForm()}
-          type="submit"
-        >
+        </Form.Group>
+        <Button block size="lg" type="submit" disabled={!validateForm()}>
           Login
-        </button>
-      </form>
+        </Button>
+      </Form>
     </div>
   );
 }
-
-export default Login;

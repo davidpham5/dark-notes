@@ -52,58 +52,58 @@ export default function Home({ isAuthenticated }) {
     function displayBodyContent(note) {
       return parser(note.content.trim().split("\n")[0]);
     }
-
-    return (
-      <div>
-        <div className="grid-3x3">
-          {[{}].concat(notes).map((note, i) => {
-            return i !== 0 ? (
-              <div className="card card--borderless" key={note.noteId}>
-                {/* <section>
-                      <div className="card--hero">
-                        {
-                          note.attachmentURL
-                          ? <Image src={note.attachmentURL} thumbnail responsive alt=""/>
-                          : ''
-                        }
-                      </div>
-                    </section> */}
-                <section>
-                  <div className="card--header">
-                    <h2>
-                      <a href={`/notes/${note.noteId}`}>{displayTitle(note)}</a>
-                    </h2>
-                  </div>
-                  <div className="card--body">
-                    {!note.title ? (
-                      <a href={`/notes/${note.noteId}`}>
-                        {displayBodyContent(note)}
-                      </a>
-                    ) : (
-                      displayBodyContent(note)
-                    )}
-                  </div>
-                  <aside className="meta">
-                    {new Date(note.createdAt).toLocaleString()}
-                  </aside>
-                </section>
-              </div>
-            ) : (
-              /* <ListGroupItem
-                  key={note.noteId}
-                  href={`/notes/${note.noteId}`}
-                  onClick={this.handleNoteClick}
-                  header={note.content.trim().split("\n")[0]}
-                >
-                  {"Created: " + new Date(note.createdAt).toLocaleString()}
-                </ListGroupItem>
-              */
-              ""
-            );
-          })}
-        </div>
-      </div>
-    );
+    return <div> hello world</div>;
+    // return (
+    //   <div>
+    //     <div className="grid-3x3">
+    //       {[{}].concat(notes).map((note, i) => {
+    //         return i !== 0 ? (
+    //           <div className="card card--borderless" key={note.noteId}>
+    //             {/* <section>
+    //                   <div className="card--hero">
+    //                     {
+    //                       note.attachmentURL
+    //                       ? <Image src={note.attachmentURL} thumbnail responsive alt=""/>
+    //                       : ''
+    //                     }
+    //                   </div>
+    //                 </section> */}
+    //             <section>
+    //               <div className="card--header">
+    //                 <h2>
+    //                   <a href={`/notes/${note.noteId}`}>{displayTitle(note)}</a>
+    //                 </h2>
+    //               </div>
+    //               <div className="card--body">
+    //                 {!note.title ? (
+    //                   <a href={`/notes/${note.noteId}`}>
+    //                     {displayBodyContent(note)}
+    //                   </a>
+    //                 ) : (
+    //                   displayBodyContent(note)
+    //                 )}
+    //               </div>
+    //               <aside className="meta">
+    //                 {new Date(note.createdAt).toLocaleString()}
+    //               </aside>
+    //             </section>
+    //           </div>
+    //         ) : (
+    //           /* <ListGroupItem
+    //               key={note.noteId}
+    //               href={`/notes/${note.noteId}`}
+    //               onClick={this.handleNoteClick}
+    //               header={note.content.trim().split("\n")[0]}
+    //             >
+    //               {"Created: " + new Date(note.createdAt).toLocaleString()}
+    //             </ListGroupItem>
+    //           */
+    //           ""
+    //         );
+    //       })}
+    //     </div>
+    //   </div>
+    // );
   }
 
   function renderLander() {
@@ -136,7 +136,7 @@ export default function Home({ isAuthenticated }) {
     return (
       <div className="notes">
         <div className="notes--page-header">
-          <PageHeader>Your Notes</PageHeader>
+          <header>Your Notes</header>
           <h4>
             <Link className="add-note" to="/notes/new">
               {"\uFF0B"} Add Note
@@ -144,7 +144,7 @@ export default function Home({ isAuthenticated }) {
           </h4>
         </div>
         <ListGroup>
-          {!state.isLoading && renderNotesList(this.state.notes)}
+          {!state.isLoading && state && renderNotesList(state.notes)}
         </ListGroup>
       </div>
     );

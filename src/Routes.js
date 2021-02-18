@@ -11,16 +11,35 @@ import Signup from "./components/SignUp";
 import AddNote from "./components/Notes/AddNote";
 import Notes from "./components/Notes/Notes";
 
-export default ({ bindings }) => {
+// export default ({ bindings }) => {
+//   return (
+//     <Switch>
+//       <RouteProvider path="/" exact component={Home} props={bindings} />
+//       <UnAuthRoute path="/login" exact component={Login} props={bindings} />
+//       <UnAuthRoute path="/signup" exact component={Signup} props={bindings} />
+//       <AuthRoute path="/notes/new" exact component={AddNote} props={bindings} />
+//       <AuthRoute path="/notes/:id" exact component={Notes} props={bindings} />
+//       {/* Finally, catch all unmatched routes */}
+//       <Route component={NotFound} />
+//     </Switch>
+//   );
+// };
+
+export default function Routes() {
   return (
     <Switch>
-      <RouteProvider path="/" exact component={Home} props={bindings} />
-      <UnAuthRoute path="/login" exact component={Login} props={bindings} />
-      <UnAuthRoute path="/signup" exact component={Signup} props={bindings} />
-      <AuthRoute path="/notes/new" exact component={AddNote} props={bindings} />
-      <AuthRoute path="/notes/:id" exact component={Notes} props={bindings} />
-      {/* Finally, catch all unmatched routes */}
-      <Route component={NotFound} />
+      <Route exact path="/">
+        <Home />
+      </Route>
+      <Route exact path="/login">
+        <Login />
+      </Route>
+      <Route exact path="/signup">
+        <Signup />
+      </Route>
+      <Route exact path="/notes/:id">
+        <Notes />
+      </Route>
     </Switch>
   );
-};
+}

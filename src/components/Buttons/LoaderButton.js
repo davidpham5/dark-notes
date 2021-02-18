@@ -1,20 +1,22 @@
 import React from "react";
-import { Button } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import { BsArrowRepeat } from "react-icons/bs";
+import "../../styles/_LoaderButton.scss";
 
-export default ({
+export default function LoaderButton({
   isLoading,
-  text,
-  loadingText,
   className = "",
   disabled = false,
   ...props
-}) => (
-  <Button
-    className={`LoaderButton ${className}`}
-    disabled={disabled || isLoading}
-    {...props}
-  >
-    {isLoading && "loading ..."}
-    {!isLoading ? text : loadingText}
-  </Button>
-);
+}) {
+  return (
+    <Button
+      disabled={disabled || isLoading}
+      className={`LoaderButton ${className} flex justify-center items-center`}
+      {...props}
+    >
+      {isLoading && <BsArrowRepeat className="spinning" />}
+      {props.children}
+    </Button>
+  );
+}

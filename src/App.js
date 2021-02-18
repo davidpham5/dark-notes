@@ -1,30 +1,18 @@
-import { Auth } from "aws-amplify";
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Link, withRouter } from "react-router-dom";
-
+import { AppContext } from "./libs/contextLib";
 import Routes from "./Routes";
+import { Auth } from "aws-amplify";
 
 import "./assets/main.css";
 import "./styles/App.css";
 import "./styles/Base.css";
 
-function App({ history }) {
-  const [state, setState] = useState({
-    isAuthenticated: false,
-    isAuthenticating: true,
-  });
-
-  let time = new Date();
-  let isNight = time.toLocaleString("en-US", {
-    hour: "numeric",
-    hour12: false,
-  });
-
-  function userHasAuthenticated(auth) {
-    return setState({
-      isAuthenticated: auth,
-    });
-  }
+function App() {
+  const [isAuthenticating, setIsAuthenticating] = useState(true);
+  const [isAuthenticated, userHasAuthenticated] = useState(false);
+  const history = useHistory();
 
   async function handleLogout(event) {
     event.preventDefault();
@@ -33,29 +21,25 @@ function App({ history }) {
     userHasAuthenticated(false);
     history.push("/login");
   }
+
   async function handleAuth() {
     try {
       await Auth.currentSession();
       userHasAuthenticated(true);
     } catch (e) {
       if (e !== "No current user") {
-        // alert(e);
+        alert(e);
       }
     }
+    setIsAuthenticating(false);
   }
 
   useEffect(() => {
     handleAuth();
-    setState({ isAuthenticating: false });
-  }, [Auth]);
+    userHasAuthenticated(false);
+  }, []);
 
   function renderApp() {
-    const { isAuthenticated, isAuthenticating, nightMode } = state;
-    const authProps = {
-      isAuthenticated,
-      userHasAuthenticated,
-    };
-
     return (
       !isAuthenticating && (
         <div className="bg-gray-800 text-white dark:bg-gray-800">
@@ -66,9 +50,9 @@ function App({ history }) {
               </aside>
               <nav className="flex justify-end">
                 {isAuthenticated ? (
-                  <div>
+                  <div className="flex justify-evenly items-center p-1">
                     <Link to="/login" onClick={handleLogout}>
-                      Logout
+                      Sign Out
                     </Link>
                   </div>
                 ) : (
@@ -86,7 +70,11 @@ function App({ history }) {
           </header>
 
           <div className="wrapper--center">
-            <Routes bindings={authProps} />
+            <AppContext.Provider
+              value={{ isAuthenticated, userHasAuthenticated }}
+            >
+              <Routes />
+            </AppContext.Provider>
           </div>
         </div>
       )

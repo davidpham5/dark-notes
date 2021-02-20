@@ -1,150 +1,155 @@
 import React, { useState } from "react";
-import { Form, FormGroup, FormControl } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
+import {useHistory} from 'react-router-dom';
+import LoaderButton from "./Buttons/LoaderButton";
+import { useAppContext } from '../libs/contextLib';
+import { useFormFields } from '../libs/hooksLib'
+import { onError } from '../libs/errorsLibs';
 
 import { Auth } from "aws-amplify";
-import LoaderButton from "./Buttons/LoaderButton";
 
-export default function Signup({ userHasAuthenticated, history }) {
-  const [state, setState] = useState({
+export default function Signup() {
+  const [fields, handleFieldChange] = useFormFields({
     isLoading: false,
     email: "",
     password: "",
     confirmPassword: "",
-    confirmationCode: "",
-    newUser: null,
+    confirmationCode: ""
   });
+
+  const history = useHistory();
+  const [newUser, setNewUser] = useState(null);
+  const {userHasAuthenticated} = useAppContext();
+  const [isLoading, setIsLoading] = useState(false);
 
   function validateForm() {
     return (
-      state.email.length > 0 &&
-      state.password.length > 0 &&
-      state.password === state.confirmPassword
+      fields.email.length > 0 &&
+      fields.password.length > 0 &&
+      fields.password === fields.confirmPassword
     );
   }
 
   function validateConfirmationForm() {
-    return state.confirmationCode.length > 0;
-  }
-
-  function handleChange(event) {
-    setState({
-      [event.target.id]: event.target.value,
-    });
+    return fields.confirmationCode.length > 0;
   }
 
   async function handleSubmit(event) {
     event.preventDefault();
-    setState({ isLoading: true });
+    setIsLoading(true);
 
     try {
       const newUser = await Auth.signUp({
-        username: state.email,
-        password: state.password,
+        username: fields.email,
+        password: fields.password,
       });
-      setState({
-        newUser,
-      });
+      setIsLoading(false);
+      setNewUser(newUser)
     } catch (e) {
-      alert(e.message);
+      onError(e.message);
+      console.log({e});
+      setIsLoading(false)
     }
-
-    setState({ isLoading: false });
   }
 
   async function handleConfirmationSubmit(event) {
     event.preventDefault();
 
-    setState({ isLoading: true });
+    setIsLoading(true);
 
     try {
-      await Auth.confirmSignUp(state.email, state.confirmationCode);
-      await Auth.signIn(state.email, state.password);
+      await Auth.confirmSignUp(fields.email, fields.confirmationCode);
+      await Auth.signIn(fields.email, fields.password);
 
       userHasAuthenticated(true);
       history.push("/");
     } catch (e) {
-      alert(e.message);
-      setState({ isLoading: false });
+      onError(e.message);
+      /*
+      TODO: handle user refreshes page on confirmation code view
+      1. Check for the UsernameExistsException in the handleSubmit function’s catch block.
+      2. Use the Auth.resendSignUp() method to resend the code if the user has not been previously confirmed. Here is a link to the Amplify API docs.
+      3. Confirm the code just as we did before.
+      https://serverless-stack.com/chapters/signup-with-aws-cognito.html
+    */
+      setIsLoading(false);
     }
   }
 
   function renderConfirmationForm() {
     return (
-      <form onSubmit={handleConfirmationSubmit}>
-        <FormGroup controlId="confirmationCode" bsSize="large">
-          <label>Confirmation Code</label>
-          <FormControl
+      <Form onSubmit={handleConfirmationSubmit}>
+        <Form.Group controlId="confirmationCode" size="lg">
+          <Form.Label>Confirmation Code</Form.Label>
+          <Form.Control
             autoFocus
+            className="p-2 mb-5"
             type="tel"
-            value={state.confirmationCode}
-            onChange={handleChange}
+            value={fields.confirmationCode}
+            onChange={handleFieldChange}
           />
-          <HelpBlock>Please check your email for the code.</HelpBlock>
-        </FormGroup>
+          <Form.Text muted>Please check your email for the code.</Form.Text>
+        </Form.Group>
         <LoaderButton
           block
-          bsSize="large"
+          size="lg"
           disabled={!validateConfirmationForm()}
           type="submit"
-          isLoading={state.isLoading}
-          text="Verify"
-          loadingText="Verifying…"
-          className="btn btn-primary"
-        />
-      </form>
+          isLoading={isLoading}
+          variant="success"
+          className="btn btn-primary mt-5"
+        >
+        Verify</LoaderButton>
+      </Form>
     );
   }
 
   function renderForm() {
     return (
       <form onSubmit={handleSubmit}>
-        <FormGroup controlId="email" bsSize="large">
-          <label>Email</label>
-          <FormControl
+        <Form.Group controlId="email" size="lg">
+          <Form.Label>Email</Form.Label>
+          <Form.Control
             className="p-2 mb-5"
             autoFocus
             type="email"
-            value={state.email}
-            onChange={handleChange}
+            value={fields.email}
+            onChange={handleFieldChange}
           />
-        </FormGroup>
-        <FormGroup controlId="password" bsSize="large">
-          <label>Password</label>
-          <FormControl
+        </Form.Group>
+        <Form.Group controlId="password" size="lg">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
             className="p-2 mb-5"
-            value={state.password}
-            onChange={handleChange}
+            value={fields.password}
+            onChange={handleFieldChange}
             type="password"
           />
-        </FormGroup>
-        <FormGroup controlId="confirmPassword" bsSize="large">
-          <label>Confirm Password</label>
-          <FormControl
+        </Form.Group>
+        <Form.Group controlId="confirmPassword" size="lg">
+          <Form.Label>Confirm Password</Form.Label>
+          <Form.Control
             className="p-2 mb-5"
-            value={state.confirmPassword}
-            onChange={handleChange}
+            value={fields.confirmPassword}
+            onChange={handleFieldChange}
             type="password"
           />
-        </FormGroup>
+        </Form.Group>
         <LoaderButton
           block
-          bsSize="large"
-          disabled={!validateForm()}
+          size="lg"
           type="submit"
-          isLoading={state.isLoading}
-          text="Signup"
-          loadingText="Signing up…"
-          className="btn btn-primary"
-        >
-          Signup
-        </LoaderButton>
+          variant="success"
+          isLoading={isLoading}
+          disabled={!validateForm()}
+          >Signup</LoaderButton>
       </form>
     );
   }
 
   return (
     <div className="Signup">
-      {state.newUser === null ? renderForm() : renderConfirmationForm()}
+    {newUser === null ? renderForm() : renderConfirmationForm()}
     </div>
   );
 }

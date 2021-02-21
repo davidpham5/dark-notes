@@ -4,5 +4,5 @@ export function onError(error) {
     message = error.message;
   }
 
-  alert(message)
+  console.error(error,message)
 }

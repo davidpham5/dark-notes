@@ -37,9 +37,11 @@ export default function Routes() {
       <Route exact path="/signup">
         <Signup />
       </Route>
-      <Route exact path="/notes/:id">
-        <Notes />
-      </Route>
+
+      <Route exact path="/notes/new">
+      <AddNote />
+    </Route>
+
     </Switch>
   );
 }

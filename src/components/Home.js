@@ -1,109 +1,74 @@
-import { API } from "aws-amplify";
 import React, { useEffect, useState } from "react";
+import { API } from "aws-amplify";
 import { ListGroup } from "react-bootstrap";
-import { Link } from "react-router-dom";
-
+import { Link, useHistory } from "react-router-dom";
+import { useAppContext } from "../libs/contextLib";
+import { BsPencilSquare } from "react-icons/bs";
+import { LinkContainer } from "react-router-bootstrap";
 // import parser from 'html-react-parser';
-
 import "../styles/App.css";
 import "../styles/Base.css";
+import { onError } from "../libs/errorsLibs";
 
 const parser = (content) => {
   return <div dangerouslySetInnerHTML={{ __html: content }}></div>;
 };
 
-export default function Home({ isAuthenticated }) {
-  const [state, setState] = useState({
-    loading: false,
-    notes: [],
-  });
+export default function Home() {
+  const [notes, setNotes] = useState([]);
+  const {isAuthenticated} = useAppContext();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const history = useHistory();
 
   function handleNoteClick(event) {
     event.preventDefault();
-    this.props.history.push(event.currentTarget.getAttribute("href"));
+    history.push(event.currentTarget.getAttribute("href"));
   }
 
-  function notes() {
+  function getNotes () {
     return API.get("notes", "/notes");
-  }
-
-  const getNotes = async () => {
-    try {
-      const notes = await notes();
-      setState({ notes });
-    } catch (e) {
-      alert(e);
-    }
   };
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      return;
-    }
+    async function onLoad () {
+      if (!isAuthenticated) {
+        return;
+      }
 
-    getNotes();
-    setState({ isLoading: false });
+      try {
+        const notes = await getNotes();
+        setNotes(notes)
+      } catch (error) {
+        onError(error)
+      }
+    }
+    console.log({isAuthenticated});
+    onLoad();
+
+    setIsLoading(false)
   }, [isAuthenticated]);
 
   function renderNotesList(notes) {
-    function displayTitle(note) {
-      return !note.title ? "" : parser(note.title.toUpperCase());
-    }
-    function displayBodyContent(note) {
-      return parser(note.content.trim().split("\n")[0]);
-    }
-    return <div> hello world</div>;
-    // return (
-    //   <div>
-    //     <div className="grid-3x3">
-    //       {[{}].concat(notes).map((note, i) => {
-    //         return i !== 0 ? (
-    //           <div className="card card--borderless" key={note.noteId}>
-    //             {/* <section>
-    //                   <div className="card--hero">
-    //                     {
-    //                       note.attachmentURL
-    //                       ? <Image src={note.attachmentURL} thumbnail responsive alt=""/>
-    //                       : ''
-    //                     }
-    //                   </div>
-    //                 </section> */}
-    //             <section>
-    //               <div className="card--header">
-    //                 <h2>
-    //                   <a href={`/notes/${note.noteId}`}>{displayTitle(note)}</a>
-    //                 </h2>
-    //               </div>
-    //               <div className="card--body">
-    //                 {!note.title ? (
-    //                   <a href={`/notes/${note.noteId}`}>
-    //                     {displayBodyContent(note)}
-    //                   </a>
-    //                 ) : (
-    //                   displayBodyContent(note)
-    //                 )}
-    //               </div>
-    //               <aside className="meta">
-    //                 {new Date(note.createdAt).toLocaleString()}
-    //               </aside>
-    //             </section>
-    //           </div>
-    //         ) : (
-    //           /* <ListGroupItem
-    //               key={note.noteId}
-    //               href={`/notes/${note.noteId}`}
-    //               onClick={this.handleNoteClick}
-    //               header={note.content.trim().split("\n")[0]}
-    //             >
-    //               {"Created: " + new Date(note.createdAt).toLocaleString()}
-    //             </ListGroupItem>
-    //           */
-    //           ""
-    //         );
-    //       })}
-    //     </div>
-    //   </div>
-    // );
+    console.log({notes});
+
+    return (
+      <div>
+        {notes.map(({ noteId, content, createdAt }) => (
+          <LinkContainer key={noteId} to={`/notes/${noteId}`}>
+            <ListGroup.Item action>
+              <span className="font-weight-bold">
+                {parser(content.trim().split("\n")[0])}
+              </span>
+              <br />
+              <span className="text-muted">
+                {new Date(createdAt).toLocaleString()}
+              </span>
+            </ListGroup.Item>
+          </LinkContainer>
+        ))}
+      </div>
+    );
   }
 
   function renderLander() {
@@ -135,16 +100,22 @@ export default function Home({ isAuthenticated }) {
   function renderNotes() {
     return (
       <div className="notes">
-        <div className="notes--page-header">
-          <header>Your Notes</header>
-          <h4>
-            <Link className="add-note" to="/notes/new">
-              {"\uFF0B"} Add Note
-            </Link>
-          </h4>
+        <div className="notes--page-header  flex justify-between">
+          <header className="text-lg">Your Notes</header>
+          <div className="flex">
+
+
+              <LinkContainer to="/notes/new">
+              <ListGroup.Item action className="py-3 text-nowrap text-truncate flex justify-center items-center">
+                <BsPencilSquare size={17} />
+                <span className="ml-2 font-weight-bold">Create a new note</span>
+              </ListGroup.Item>
+            </LinkContainer>
+
+          </div>
         </div>
-        <ListGroup>
-          {!state.isLoading && state && renderNotesList(state.notes)}
+        <ListGroup className="">
+          {!isLoading && renderNotesList(notes)}
         </ListGroup>
       </div>
     );

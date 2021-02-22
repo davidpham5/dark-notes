@@ -57,9 +57,9 @@ export default function AddNote () {
     //   attachmentURL = await Storage.vault.get(attachment);
     // }
     await createNote({
-      // attachment,
-      // attachmentURL,
-      // title,
+      attachment,
+      attachmentURL,
+      title,
       content
     });
     history.push("/");
@@ -76,9 +76,9 @@ export default function AddNote () {
   }
 
   return (
-    <div className="AddNote">
+    <div className="AddNote max-w-2xl p-5 rounded overflow-hidden shadow-lg w-full h-auto bg-gray-900">
       <Form onSubmit={handleSubmit}>
-        <Form.Group >
+        <Form.Group className="mb-5">
           <Form.Label htmlFor="title">Title</Form.Label>
             <Editor
             className="editor--title"

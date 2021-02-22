@@ -116,15 +116,12 @@ export default function Home() {
         <div className="notes--page-header  flex justify-between">
           <header className="text-lg">Your Notes</header>
           <div className="flex">
-
-
-              <LinkContainer to="/notes/new">
+              <LinkContainer to="/note/new">
               <ListGroup.Item action className="py-3 text-nowrap text-truncate flex justify-center items-center">
                 <BsPencilSquare size={17} />
                 <span className="ml-2 font-weight-bold">Create a new note</span>
               </ListGroup.Item>
             </LinkContainer>
-
           </div>
         </div>
         <ListGroup className="">

@@ -43,7 +43,7 @@ export default function Home() {
         onError(error)
       }
     }
-    console.log({isAuthenticated});
+
     onLoad();
 
     setIsLoading(false)
@@ -51,21 +51,34 @@ export default function Home() {
 
   function renderNotesList(notes) {
     console.log({notes});
-
     return (
-      <div>
-        {notes.map(({ noteId, content, createdAt }) => (
-          <LinkContainer key={noteId} to={`/notes/${noteId}`}>
-            <ListGroup.Item action>
-              <span className="font-weight-bold">
-                {parser(content.trim().split("\n")[0])}
-              </span>
-              <br />
-              <span className="text-muted">
-                {new Date(createdAt).toLocaleString()}
-              </span>
-            </ListGroup.Item>
-          </LinkContainer>
+      <div className="flex gap-5">
+        {notes.map(({ noteId, title, content, createdAt }) => (
+          <div className="max-w-sm rounded overflow-hidden shadow-lg w-full h-auto bg-gray-900" key={noteId}>
+            {/* <img className="w-full" alt="Sunset in the mountains" /> */}
+            <div className="px-6 py-4">
+              <div className="font-bold text-xl mb-2"></div>
+              <Link to={`/notes/${noteId}`} className="font-bold text-xl mb-2">
+                {parser(title)}
+              </Link>
+            </div>
+            {/*<div className="px-6 pt-4 pb-2">
+              <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
+              <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
+              <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
+            </div>
+        */}
+          </div>
+          // <LinkContainer key={noteId} to={`/notes/${noteId}`} className="bg-white ">
+          //   <ListGroup.Item action>
+          //     <span className="font-weight-bold">
+          //       {parser(content.trim().split("\n")[0])}
+          //     </span>
+          //     <span className="text-muted">
+          //       {new Date(createdAt).toLocaleString()}
+          //     </span>
+          //   </ListGroup.Item>
+          // </LinkContainer>
         ))}
       </div>
     );

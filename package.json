@@ -9,6 +9,7 @@
     "add": "^2.0.6",
     "aws-amplify": "^3.3.7",
     "node-sass": "4.14.1",
+    "node-sass-chokidar": "^1.5.0",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.0",
     "react-dom": "^17.0.1",

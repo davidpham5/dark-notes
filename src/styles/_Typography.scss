@@ -1,6 +1,22 @@
-@import url("https://fonts.googleapis.com/css?family=Lato:300,400,700");
+// @import url("https://fonts.googleapis.com/css?family=Lato:300,400,700");
 
-$font-family: "Lato", sans-serif;
+//$font-family: "Lato", sans-serif;
+@font-face {
+  font-family: 'Fira Code';
+  src: url('./fonts/FiraCode-Retina.otf');
+  src: url('./fonts/FiraCode-Retina.otf') format('otf');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Fira Code Bold';
+  src: url('./fonts/FiraCode-Bold.otf');
+  src: url('./fonts/FiraCode-Bold.otf') format('otf');
+  font-weight: normal;
+  font-style: normal;
+}
+$font-family: "Fira Code", sans-serif;
+$font-family-bold: "Fira Code Bold", sans-serif;
 $base-font-size: 16px;
 $big: 125%;
 $primary: rgb(0, 47, 60);

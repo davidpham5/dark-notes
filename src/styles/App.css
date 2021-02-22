@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 .neu-shadow {
-  box-shadow: -4px -4px 10px rgb(255, 255, 255), 4px 4px 10px rgba(0, 0, 0, 0.219);
-}
+  box-shadow: -4px -4px 10px white, 4px 4px 10px rgba(0, 0, 0, 0.219); }
+
 .App header {
   display: flex;
   justify-content: center; }

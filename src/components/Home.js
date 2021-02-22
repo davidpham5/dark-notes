@@ -10,7 +10,7 @@ import "../styles/App.css";
 import "../styles/Base.css";
 import { onError } from "../libs/errorsLibs";
 
-const parser = (content) => {
+export const parser = (content) => {
   return <div dangerouslySetInnerHTML={{ __html: content }}></div>;
 };
 
@@ -50,7 +50,7 @@ export default function Home() {
   }, [isAuthenticated]);
 
   function renderNotesList(notes) {
-    console.log({notes});
+
     return (
       <div className="flex gap-5">
         {notes.map(({ noteId, title, content, createdAt }) => (

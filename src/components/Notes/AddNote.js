@@ -137,7 +137,7 @@ export default function AddNote () {
 
         <Form.Group controlId="file" size="lg">
           <Form.Label>Attachment</Form.Label>
-          <Form.Control onChange={handleFileChange} type="file" />
+          <Form.Control onChange={handleFileChange} type="file" className="p-5" />
         </Form.Group>
         <br />
         <LoaderButton

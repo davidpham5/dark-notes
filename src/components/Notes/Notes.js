@@ -11,14 +11,20 @@ import "../../../node_modules/medium-editor/dist/css/themes/beagle.css";
 import Editor from "react-medium-editor";
 import config from "../../config";
 
+const stripTags = (content) => {
+  return content.replace(/(<([^>]+)>)/gi, "");
+};
+
 export default function Notes () {
   const file = useRef(null);
   const { id } = useParams();
   const history = useHistory();
   const [note, setNote] = useState(null);
   const [content, setContent] = useState('');
+  const [title, setTitle] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const editorRef = useRef(null);
 
   function getNote() {
     return API.get("notes", `/notes/${id}`);
@@ -42,26 +48,24 @@ export default function Notes () {
     return str.replace(/^\w+-/, "");
   }
 
-  // handleChange = (content) => {
-  //   this.setState({
-  //     content: content,
-  //     // [event.target.id]: event.target.value
-  //   });
-  // };
+  function handleContent (content) {
+    return setContent(content)
+  };
 
-  // handleTitle(title) {
-  //   this.setState({
-  //     title: title,
-  //   });
-  // }
+  function handleTitle(title) {
+    return setTitle(title)
+  }
 
+  function handleCancel () {
+    history.push('/')
+  }
   function handleFileChange (event) {
-    file = event.target.files[0];
+    file.current = event.target.files[0];
   };
 
   async function handleSubmit (event) {
-    let attachment;
-    let attachmentURL;
+    var attachment;
+    // var attachmentURL;
     event.preventDefault();
 
     if (file && file.size > config.MAX_ATTACHMENT_SIZE) {
@@ -82,9 +86,9 @@ export default function Notes () {
 
       await saveNote({
         content,
-        title: note.title,
-        attachment: note.attachment,
-        attachmentURL: note.attachmentURL
+        title,
+        attachment: attachment || note.attachment,
+        // attachmentURL: attachmentURL || note.attachmentURL
       });
 
       history.push("/");
@@ -116,136 +120,6 @@ export default function Notes () {
     }
   };
 
-  // async componentDidMount() {
-  //   try {
-  //     let attachmentURL;
-  //     const note = await this.getNote();
-  //     const { content, title, attachment } = note;
-
-  //     if (attachment) {
-  //       attachmentURL = await Storage.vault.get(attachment);
-  //     }
-
-  //     this.setState({
-  //       note,
-  //       content,
-  //       title,
-  //       attachmentURL,
-  //     });
-  //   } catch (e) {
-  //     alert(e);
-  //   }
-  // }
-
-  // render() {
-  //   return (
-  //     <div className="UpdateNotes">
-  //       {this.state.note && (
-  //         <form onSubmit={this.handleSubmit}>
-  //           <FormGroup controlId="content">
-  //             <label htmlFor="title">Title</label>
-  //             <Editor
-  //               id="title"
-  //               text={this.state.title}
-  //               className="editor--title"
-  //               value={this.state.title}
-  //               onChange={this.handleTitle}
-  //               options={{
-  //                 toolbar: {
-  //                   buttons: [
-  //                     "bold",
-  //                     "italic",
-  //                     "underline",
-  //                     "h1",
-  //                     "h2",
-  //                     "h3",
-  //                     "anchor",
-  //                     "quote",
-  //                   ],
-  //                 },
-  //                 autoLink: true,
-  //                 targetBlank: true,
-  //                 placeholder: {
-  //                   text: "Title",
-  //                 },
-  //               }}
-  //             />
-  //             <label htmlFor="body">Content</label>
-  //             <Editor
-  //               id="body"
-  //               text={this.state.content}
-  //               onChange={this.handleChange}
-  //               value={this.state.content}
-  //               options={{
-  //                 toolbar: {
-  //                   buttons: [
-  //                     "bold",
-  //                     "italic",
-  //                     "underline",
-  //                     "h1",
-  //                     "h2",
-  //                     "h3",
-  //                     "anchor",
-  //                     "quote",
-  //                   ],
-  //                 },
-  //                 autoLink: true,
-  //                 targetBlank: true,
-  //                 placeholder: {
-  //                   text: "Tell me a story",
-  //                 },
-  //               }}
-  //             />
-  //             {/* <FormControl
-  //               className="editable"
-  //               onChange={this.handleChange}
-  //               value={this.state.content}
-  //               componentClass="textarea"
-  //             />*/}
-  //           </FormGroup>
-  //           {/* {this.state.note.attachment &&
-  //             <FormGroup>
-  //               <ControlLabel>Attachment</ControlLabel>
-  //               <FormControl.Static style={{display: 'flex', flexDirection: 'column'}}>
-  //                 <a target="_blank" rel="noopener noreferrer" href={this.state.attachmentURL}>
-  //                   {this.formatFilename(this.state.note.attachment)}
-  //                 </a>
-  //                 <Image src={this.state.attachmentURL} thumbnail responsive alt=""/>
-  //               </FormControl.Static>
-  //             </FormGroup>
-  //           } */}
-
-  //           {/* <FormGroup controlId="file">
-  //             {!this.state.note.attachment &&
-  //               <ControlLabel>Attachment</ControlLabel>
-  //             }
-  //             <FormControl onChange={this.handleFileChange} type="file" />
-  //           </FormGroup> */}
-  //           <div className="form--action-buttons">
-  //             <LoaderButton
-  //               bsStyle="primary"
-  //               bsSize="large"
-  //               disabled={!this.validateForm()}
-  //               type="submit"
-  //               isLoading={this.state.isLoading}
-  //               text="Save"
-  //               loadingText="Saving…"
-  //             />
-
-  //             <LoaderButton
-  //               bsStyle="danger"
-  //               bsSize="large"
-  //               isLoading={this.state.isDeleting}
-  //               onClick={this.handleDelete}
-  //               text="Delete"
-  //               loadingText="Deleting…"
-  //             />
-  //           </div>
-  //         </form>
-  //       )}
-  //     </div>
-  //   );
-  // }
   useEffect(() => {
     function getNote () {
       return API.get('notes', `/notes/${id}`);
@@ -254,14 +128,16 @@ export default function Notes () {
     async function onLoad () {
       try {
         const note = await getNote();
-        const { content, attachment } = note;
+        const { title, content, attachment } = note;
+        const pristineContent = stripTags(content);
 
-        if ( attachment ) {
-          note.attachmentUrl = await Storage.vault.get(attachment)
+        if (attachment) {
+          note.attachmentURL = await Storage.vault.get(attachment);
         }
-        setContent(content);
+        setContent(pristineContent);
+        setTitle(title)
         setNote(note);
-        console.log({note, content});
+
       } catch (error) {
         onError(error)
       }
@@ -271,22 +147,72 @@ export default function Notes () {
 
   return (
     <div className="">{note && (
-      <Form className="max-w-sm rounded overflow-hidden shadow-lg w-full h-auto bg-gray-900 p-5" onSubmit={handleSubmit}>
-        <Form.Group controlId="content">
-          <Form.Control
-            as="textarea"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
+      <Form className="max-w-5xl rounded overflow-hidden shadow-lg bg-gray-900 p-5" onSubmit={handleSubmit}>
+        <Form.Group className="mb-5">
+          <Form.Label htmlFor="title">Title</Form.Label>
+            <Editor
+              className="bg-white text-black p-3 rounded"
+              text={title}
+              onChange={handleTitle}
+              options={{
+                toolbar: {
+                  buttons: [
+                    "bold",
+                    "italic",
+                    "underline",
+                    "h1",
+                    "h2",
+                    "h3",
+                    "anchor",
+                    "quote",
+                  ],
+                },
+                autoLink: true,
+                targetBlank: true,
+                placeholder: {
+                  text: "Title",
+                },
+              }}
+            />
+        </Form.Group>
+        <Form.Group controlId="content" className="mb-5">
+          <Editor
+            ref={editorRef}
+            text={content}
+            onChange={handleContent}
+            className="bg-white text-black p-3 rounded"
+            options={{
+              toolbar: {
+                buttons: [
+                  "bold",
+                  "italic",
+                  "underline",
+                  "h1",
+                  "h2",
+                  "h3",
+                  "anchor",
+                  "quote",
+                  "orderedlist",
+                  "unorderedlist",
+                  "pre",
+                ],
+              },
+              autoLink: true,
+              targetBlank: true,
+              placeholder: {
+                text: "Tell me a story",
+              },
+            }}
           />
         </Form.Group>
-        <Form.Group controlId="file">
+        <Form.Group controlId="file" className="">
           <Form.Label>Attachment</Form.Label>
           {note.attachment && (
             <p>
               <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href={note.attachmentURL}
+                href={note.attachmentUrl}
               >
                 {formatFilename(note.attachment)}
               </a>
@@ -294,24 +220,37 @@ export default function Notes () {
           )}
           <Form.Control onChange={handleFileChange} type="file" />
         </Form.Group>
-        <LoaderButton
-          block
-          size="lg"
-          type="submit"
-          isLoading={isLoading}
-          disabled={!validateForm()}
-        >
-          Save
-        </LoaderButton>
-        <LoaderButton
-          block
-          size="lg"
-          variant="danger"
-          onClick={handleDelete}
-          isLoading={isDeleting}
-        >
-          Delete
-        </LoaderButton>
+        <div className="flex gap-5 mt-5">
+          <LoaderButton
+            block
+            size="lg"
+            type="submit"
+            isLoading={isLoading}
+            disabled={!validateForm()}
+          >
+            Save
+          </LoaderButton>
+
+          <LoaderButton
+            block
+            size="lg"
+            variant="cancel"
+            onClick={handleCancel}
+          >
+            Cancel
+          </LoaderButton>
+          <div className="flex justify-end flex-auto">
+            <LoaderButton
+              block
+              size="lg"
+              variant="danger"
+              onClick={handleDelete}
+              isLoading={isDeleting}>
+              Delete
+            </LoaderButton>
+          </div>
+        </div>
+
       </Form>
     )}</div>
   )

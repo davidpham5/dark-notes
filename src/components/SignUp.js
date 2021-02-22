@@ -47,7 +47,6 @@ export default function Signup() {
       setNewUser(newUser)
     } catch (e) {
       onError(e.message);
-      console.log({e});
       setIsLoading(false)
     }
   }

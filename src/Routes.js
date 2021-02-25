@@ -24,9 +24,7 @@ export default function Routes() {
       <UnAuthRoute exact path="/signup">
         <Signup />
       </UnAuthRoute>
-      <UnAuthRoute>
-        <NotFound />
-      </UnAuthRoute>
+
       <AuthRoute exact path="/notes/:id">
         <Notes />
       </AuthRoute>

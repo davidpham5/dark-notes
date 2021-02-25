@@ -40,7 +40,7 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById("root")
 );
-// ReactDOM.render(<HelloWorld />, document.getElementById('app'));
+
 
 registerServiceWorker();
 

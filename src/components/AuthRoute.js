@@ -1,17 +1,22 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect, useLocation } from "react-router-dom";
+import { useAppContext } from '../libs/contextLib';
 
-function AuthRoute({ component: Component, props: bindings, ...rest }) {
-  const isAuth = (props) =>
-    bindings.isAuthenticated ? (
-      <Component {...props} {...bindings} />
-    ) : (
-      <Redirect
-        to={`/login?redirect=${props.location.pathname} ${props.location.search}`}
-      />
-    );
+function AuthRoute({ children, ...rest}) {
+  const {pathname, search} = useLocation();
+  const { isAuthenticated } = useAppContext();
 
-  return <Route {...rest} render={isAuth} />;
+  return (
+    <Route {...rest}>
+      {isAuthenticated ? (
+        children
+      ) : (
+        <Redirect to={
+          `/login?redirect=${pathname}${search}`
+        } />
+      )}
+    </Route>
+  );
 }
 
 export default AuthRoute;

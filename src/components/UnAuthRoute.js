@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
+import { useAppContext } from "../libs/contextLib";
 
 function querystring(name, url = window.location.href) {
   name = name.replace(/[[]]/g, "\\$&");
@@ -17,16 +18,16 @@ function querystring(name, url = window.location.href) {
   return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-function UnAuthRoute({ component: Comp, props: bindings, ...rest }) {
+export default function UnAuthRoute({ children, ...rest }) {
+  const { isAuthenticated } = useAppContext();
   const redirect = querystring("redirect");
-  function notAuth(props) {
-    return !bindings.isAuthenticated ? (
-      <Comp {...props} {...bindings} />
-    ) : (
-      <Redirect to={redirect === "" || redirect === null ? "/" : redirect} />
-    );
-  }
-  return <Route {...rest} render={notAuth} />;
+  return (
+    <Route {...rest}>
+      {!isAuthenticated ? (
+        children
+      ) : (
+        <Redirect to={redirect === "" || redirect === null ? "/" : redirect} />
+      )}
+    </Route>
+  );
 }
-
-export default UnAuthRoute;

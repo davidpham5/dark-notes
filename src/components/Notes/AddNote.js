@@ -7,9 +7,6 @@ import s3Upload from "../../libs/awsLibs";
 import config from '../../config';
 
 import { API } from "aws-amplify";
-import "../../../node_modules/medium-editor/dist/css/medium-editor.min.css";
-import "../../../node_modules/medium-editor/dist/css/themes/beagle.css";
-import Editor from "react-medium-editor";
 
 export default function AddNote () {
   let file = useRef(null);
@@ -80,58 +77,17 @@ export default function AddNote () {
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-5">
           <Form.Label htmlFor="title">Title</Form.Label>
-            <Editor
+            <Form.Control
             className="editor--title"
-            text={title}
+            value={title}
             className="editor--title"
             onChange={handleTitle}
-            options={{
-              toolbar: {
-                buttons: [
-                  "bold",
-                  "italic",
-                  "underline",
-                  "h1",
-                  "h2",
-                  "h3",
-                  "anchor",
-                  "quote",
-                ],
-              },
-              autoLink: true,
-              targetBlank: true,
-              placeholder: {
-                text: "Title",
-              },
-            }}
           />
         <Form.Label htmlFor="body">Content</Form.Label>
-          <Editor
+          <Form.Control
             ref={editorRef}
-            text={content}
+            value={content}
             onChange={handleChange}
-            options={{
-              toolbar: {
-                buttons: [
-                  "bold",
-                  "italic",
-                  "underline",
-                  "h1",
-                  "h2",
-                  "h3",
-                  "anchor",
-                  "quote",
-                  "orderedlist",
-                  "unorderedlist",
-                  "pre",
-                ],
-              },
-              autoLink: true,
-              targetBlank: true,
-              placeholder: {
-                text: "Tell me a story",
-              },
-            }}
           />
         </Form.Group>
 

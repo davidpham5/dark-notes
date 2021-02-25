@@ -1,9 +1,10 @@
+import { Auth } from "aws-amplify";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Link, withRouter } from "react-router-dom";
+
 import { AppContext } from "./libs/contextLib";
 import Routes from "./Routes";
-import { Auth } from "aws-amplify";
 
 import "./assets/main.css";
 import "./styles/App.css";
@@ -51,6 +52,9 @@ function App() {
               <nav className="flex justify-end">
                 {isAuthenticated ? (
                   <div className="flex justify-evenly items-center p-1">
+                    <Link to="/settings">
+                      <span className="pl-3 pr-3">Settings</span>
+                    </Link>
                     <Link to="/login" onClick={handleLogout}>
                       Sign Out
                     </Link>

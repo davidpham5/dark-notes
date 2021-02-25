@@ -6,9 +6,6 @@ import LoaderButton from "../Buttons/LoaderButton";
 import s3Upload from "../../libs/awsLibs";
 import { onError } from '../../libs/errorsLibs';
 
-import "../../../node_modules/medium-editor/dist/css/medium-editor.min.css";
-import "../../../node_modules/medium-editor/dist/css/themes/beagle.css";
-import Editor from "react-medium-editor";
 import config from "../../config";
 
 const stripTags = (content) => {
@@ -150,59 +147,18 @@ export default function Notes () {
       <Form className="max-w-5xl rounded overflow-hidden shadow-lg bg-gray-900 p-5" onSubmit={handleSubmit}>
         <Form.Group className="mb-5">
           <Form.Label htmlFor="title">Title</Form.Label>
-            <Editor
+            <Form.Control
               className="bg-white text-black p-3 rounded"
-              text={title}
+              value={title}
               onChange={handleTitle}
-              options={{
-                toolbar: {
-                  buttons: [
-                    "bold",
-                    "italic",
-                    "underline",
-                    "h1",
-                    "h2",
-                    "h3",
-                    "anchor",
-                    "quote",
-                  ],
-                },
-                autoLink: true,
-                targetBlank: true,
-                placeholder: {
-                  text: "Title",
-                },
-              }}
             />
         </Form.Group>
         <Form.Group controlId="content" className="mb-5">
-          <Editor
+          <Form.Control
             ref={editorRef}
             text={content}
             onChange={handleContent}
             className="bg-white text-black p-3 rounded"
-            options={{
-              toolbar: {
-                buttons: [
-                  "bold",
-                  "italic",
-                  "underline",
-                  "h1",
-                  "h2",
-                  "h3",
-                  "anchor",
-                  "quote",
-                  "orderedlist",
-                  "unorderedlist",
-                  "pre",
-                ],
-              },
-              autoLink: true,
-              targetBlank: true,
-              placeholder: {
-                text: "Tell me a story",
-              },
-            }}
           />
         </Form.Group>
         <Form.Group controlId="file" className="">

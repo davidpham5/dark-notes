@@ -52,14 +52,14 @@ export default function Home() {
   function renderNotesList(notes) {
 
     return (
-      <div className="flex gap-5">
+      <div className="flex gap-5 flex-col">
         {notes.map(({ noteId, title, content, createdAt }) => (
-          <div className="max-w-sm rounded overflow-hidden shadow-lg w-full h-auto bg-gray-900" key={noteId}>
+          <div className="rounded overflow-hidden shadow-lg w-full h-auto bg-gray-900" key={noteId}>
             {/* <img className="w-full" alt="Sunset in the mountains" /> */}
             <div className="px-6 py-4">
-              <div className="font-bold text-xl mb-2"></div>
-              <Link to={`/notes/${noteId}`} className="font-bold text-xl mb-2">
-                {parser(title)}
+              <div className="font-bold text-xl mb-2 "></div>
+              <Link to={`/notes/${noteId}`} className="font-bold text-shadow-green-bold text-giant mb-2">
+                {title}
               </Link>
             </div>
             {/*<div className="px-6 pt-4 pb-2">

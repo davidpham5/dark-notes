@@ -1,19 +1,10 @@
 // @import url("https://fonts.googleapis.com/css?family=Lato:300,400,700");
 
-//$font-family: "Lato", sans-serif;
-@font-face {
-  font-family: 'Fira Code';
-  src: url('./fonts/FiraCode-Retina.otf');
-  src: url('./fonts/FiraCode-Retina.otf') format('otf');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Fira Code Bold';
-  src: url('./fonts/FiraCode-Bold.otf');
-  src: url('./fonts/FiraCode-Bold.otf') format('otf');
-  font-weight: normal;
-  font-style: normal;
+@import url(https://cdn.jsdelivr.net/gh/tonsky/FiraCode@4/distr/fira_code.css);
+code { font-family: 'Fira Code', monospace; }
+
+@supports (font-variation-settings: normal) {
+  code { font-family: 'Fira Code VF', monospace; }
 }
 $font-family: "Fira Code", sans-serif;
 $font-family-bold: "Fira Code Bold", sans-serif;
@@ -38,4 +29,13 @@ h6 {
   input {
     color: #333;
   }
+}
+
+.text-giant {
+  font-size: 4rem;
+  line-height: 1.2;
+}
+
+.text-shadow-green-bold {
+  text-shadow: 4px 5px 0px #58aa20;
 }

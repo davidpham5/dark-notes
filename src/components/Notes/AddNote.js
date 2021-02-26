@@ -17,16 +17,16 @@ export default function AddNote () {
   const [title, setTitle] = useState('');
 
 
-  function handleTitle(title) {
-    return setTitle(title)
+  function handleTitle(event) {
+    return setTitle(event.target.value)
   }
 
   function validateForm() {
     return content.length > 0;
   }
 
-  function handleChange (content) {
-    return setContent(content)
+  function handleChange (event) {
+    return setContent(event.target.value)
   };
 
   function handleFileChange (event) {
@@ -78,16 +78,16 @@ export default function AddNote () {
         <Form.Group className="mb-5">
           <Form.Label htmlFor="title">Title</Form.Label>
             <Form.Control
-            className="editor--title"
-            value={title}
-            className="editor--title"
-            onChange={handleTitle}
-          />
+              value={title}
+              onChange={handleTitle}
+              className="bg-white text-black p-3 rounded w-full"
+            />
         <Form.Label htmlFor="body">Content</Form.Label>
           <Form.Control
-            ref={editorRef}
+            as="textarea"
             value={content}
             onChange={handleChange}
+            className="bg-white text-black p-3 rounded w-full"
           />
         </Form.Group>
 

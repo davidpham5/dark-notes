@@ -45,12 +45,12 @@ export default function Notes () {
     return str.replace(/^\w+-/, "");
   }
 
-  function handleContent (content) {
-    return setContent(content)
+  function handleContent (event) {
+    return setContent(event.target.value);
   };
 
-  function handleTitle(title) {
-    return setTitle(title)
+  function handleTitle(event) {
+    return setTitle(event.target.value);
   }
 
   function handleCancel () {
@@ -143,23 +143,25 @@ export default function Notes () {
   }, []);
 
   return (
-    <div className="">{note && (
+    <div className="AddNote">{note && (
       <Form className="max-w-5xl rounded overflow-hidden shadow-lg bg-gray-900 p-5" onSubmit={handleSubmit}>
         <Form.Group className="mb-5">
           <Form.Label htmlFor="title">Title</Form.Label>
             <Form.Control
-              className="bg-white text-black p-3 rounded"
+              type="text"
               value={title}
               onChange={handleTitle}
+              className="bg-white text-black p-3 rounded w-full"
             />
         </Form.Group>
         <Form.Group controlId="content" className="mb-5">
           <Form.Control
-            ref={editorRef}
-            text={content}
+            as="textarea"
+            value={content}
             onChange={handleContent}
-            className="bg-white text-black p-3 rounded"
+            className="bg-white text-black p-3 rounded w-full"
           />
+
         </Form.Group>
         <Form.Group controlId="file" className="">
           <Form.Label>Attachment</Form.Label>
@@ -174,19 +176,18 @@ export default function Notes () {
               </a>
             </p>
           )}
-          <Form.Control onChange={handleFileChange} type="file" />
+          <Form.Control onChange={handleFileChange} type="file" className="p-5"/>
         </Form.Group>
         <div className="flex gap-5 mt-5">
-          <LoaderButton
-            block
-            size="lg"
-            type="submit"
-            isLoading={isLoading}
-            disabled={!validateForm()}
-          >
-            Save
-          </LoaderButton>
-
+        <LoaderButton
+        block
+        size="lg"
+        variant="danger"
+        onClick={handleDelete}
+        isLoading={isDeleting}>
+        Delete
+      </LoaderButton>
+          <div className="flex justify-end flex-auto">
           <LoaderButton
             block
             size="lg"
@@ -195,16 +196,19 @@ export default function Notes () {
           >
             Cancel
           </LoaderButton>
-          <div className="flex justify-end flex-auto">
-            <LoaderButton
-              block
-              size="lg"
-              variant="danger"
-              onClick={handleDelete}
-              isLoading={isDeleting}>
-              Delete
-            </LoaderButton>
+          <LoaderButton
+          block
+          size="lg"
+          type="submit"
+          isLoading={isLoading}
+          disabled={!validateForm()}
+        >
+          Save
+        </LoaderButton>
+
           </div>
+
+
         </div>
 
       </Form>

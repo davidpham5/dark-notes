@@ -14,6 +14,7 @@ export default function Login() {
     email: '',
     password: ''
   });
+  const [error, setError] = useState('');
 
   function validateForm() {
     return fields.email.length > 0 && fields.password.length > 0;
@@ -28,6 +29,7 @@ export default function Login() {
       userHasAuthenticated(true);
     } catch (e) {
       onError(e.message);
+      setError(e.message);
       setIsLoading(false);
     }
   }
@@ -35,6 +37,7 @@ export default function Login() {
   return (
     <div className="Login">
       <Form onSubmit={handleSubmit}>
+        <Form.Text className="mb-3 text-red-500">{error}</Form.Text>
         <Form.Group size="lg" controlId="email" className="mb-4">
           <Form.Label>Email</Form.Label>
           <Form.Control

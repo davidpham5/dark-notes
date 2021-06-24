@@ -42,7 +42,8 @@
     "axios": "^0.18.1",
     "husky": ">=4",
     "lint-staged": ">=10",
-    "postcss": "^8.2.6",
+    "postcss": "^8.3.5",
+    "postcss-nested": "^5.0.5",
     "prettier": "2.2.1"
   },
   "husky": {

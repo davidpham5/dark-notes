@@ -51,6 +51,9 @@ function App() {
               <nav className="flex justify-end">
                 {isAuthenticated ? (
                   <div className="flex justify-evenly items-center p-1">
+                    <Link to="/compose">
+                      <span className="pl-3 pr-3">Compose</span>
+                    </Link>
                     <Link to="/settings">
                       <span className="pl-3 pr-3">Settings</span>
                     </Link>

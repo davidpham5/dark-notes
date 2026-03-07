@@ -10,6 +10,7 @@ import AddNote from "./components/Notes/AddNote";
 import Notes from "./components/Notes/Notes";
 import Settings from "./components/Settings";
 import Signup from "./components/SignUp";
+import Composer from "./components/Bluesky/Composer";
 
 export default function AppRoutes() {
   return (
@@ -20,6 +21,7 @@ export default function AppRoutes() {
       <Route path="/notes/:id" element={<AuthRoute><Notes /></AuthRoute>} />
       <Route path="/note/new" element={<AuthRoute><AddNote /></AuthRoute>} />
       <Route path="/settings" element={<AuthRoute><Settings /></AuthRoute>} />
+      <Route path="/compose" element={<AuthRoute><Composer /></AuthRoute>} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

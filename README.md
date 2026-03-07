@@ -1,6 +1,6 @@
 # Getting Started
 
-Dark notes is serverless app. The API endpoints live in AWS apiGateway. Authentication leverages AWS Cognito. This repo is the frontend, React.
+Dark notes is a serverless app. The API endpoints live in AWS apiGateway. Authentication leverages AWS Cognito. This repo is the frontend, React.
 
 To start, at root
 

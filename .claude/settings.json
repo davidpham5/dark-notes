@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm uninstall react-scripts node-sass node-sass-chokidar)",
+      "Bash(npm install --save-dev vite @vitejs/plugin-react sass)",
+      "Bash(sed -i '' 's/process\\\\.env\\\\.REACT_APP_STRIPE_KEY/import.meta.env.VITE_STRIPE_KEY/' /Users/davidpham/Developer/side-projects/dark-notes/src/config.js)",
+      "Bash(sed -i '' 's/REACT_APP_STRIPE_KEY/VITE_STRIPE_KEY/' /Users/davidpham/Developer/side-projects/dark-notes/.env)",
+      "Bash(sed -i '' '/import registerServiceWorker/d' src/index.js)",
+      "Bash(sed -i '' '/registerServiceWorker\\(\\)/d' src/index.js)",
+      "Bash(sed -i '' '/module\\\\.hot/d' src/index.js)",
+      "Bash(sed -i '' '/module\\\\.hot\\\\.accept/d' src/index.js)",
+      "Bash(npm install react-router-dom@7 react-router-bootstrap@0.26 --legacy-peer-deps)",
+      "Bash(sed -i '' \"s/import { useHistory } from ''react-router-dom''/import { useNavigate } from ''react-router-dom''/\" /Users/davidpham/Developer/side-projects/dark-notes/src/components/Notes/AddNote.js /Users/davidpham/Developer/side-projects/dark-notes/src/components/Notes/Notes.js /Users/davidpham/Developer/side-projects/dark-notes/src/components/SignUp.js /Users/davidpham/Developer/side-projects/dark-notes/src/components/Home.js)",
+      "Bash(sed -i '' \"s/import { useHistory } from ''react-router-dom''/import { useNavigate } from ''react-router-dom''/\" /Users/davidpham/Developer/side-projects/dark-notes/src/components/Settings.js)",
+      "Bash(for f in src/components/Login.js src/components/SignUp.js src/components/BillingForm.js src/components/Notes/AddNote.js src/components/Notes/Notes.js src/components/Settings.js)",
+      "Bash(do)",
+      "Bash(sed -i '' 's/<Form\\\\.Group size=\"\"lg\"\"/<Form.Group/g' \"$f\")",
+      "Bash(done)",
+      "Bash(npm install aws-amplify@6 --legacy-peer-deps)",
+      "Bash(sed -i '' \"s/import { Auth } from \"\"aws-amplify\"\"/import { signOut, fetchAuthSession } from ''aws-amplify\\\\/auth''/\" /Users/davidpham/Developer/side-projects/dark-notes/src/App.js)",
+      "Bash(sed -i '' 's/await Auth\\\\.signOut\\(\\)/await signOut\\(\\)/' /Users/davidpham/Developer/side-projects/dark-notes/src/App.js)",
+      "Bash(sed -i '' 's/await Auth\\\\.currentSession\\(\\)/await fetchAuthSession\\({ forceRefresh: false }\\)/' /Users/davidpham/Developer/side-projects/dark-notes/src/App.js)",
+      "Bash(npm install @stripe/react-stripe-js@latest @stripe/stripe-js@latest --legacy-peer-deps)",
+      "Bash(/Users/davidpham/Developer/side-projects/dark-notes/src/assets/tailwind.css:*)"
+    ]
+  }
+}

@@ -16,7 +16,7 @@ export const parser = (content) => {
 
 export default function Home() {
   const [notes, setNotes] = useState([]);
-  const {isAuthenticated} = useAppContext();
+  const { isAuthenticated } = useAppContext();
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -29,10 +29,10 @@ export default function Home() {
   async function getNotes() {
     const { body } = await get({ apiName: "notes", path: "/notes" }).response;
     return body.json();
-  };
+  }
 
   useEffect(() => {
-    async function onLoad () {
+    async function onLoad() {
       if (!isAuthenticated) {
         return;
       }
@@ -52,15 +52,20 @@ export default function Home() {
   }, [isAuthenticated]);
 
   function renderNotesList(notes) {
-
     return (
       <div className="flex gap-5 flex-col">
         {notes.map(({ noteId, title, content, createdAt }) => (
-          <div className="rounded overflow-hidden shadow-lg w-full h-auto bg-gray-900" key={noteId}>
+          <div
+            className="rounded overflow-hidden shadow-lg w-full h-auto bg-gray-900"
+            key={noteId}
+          >
             {/* <img className="w-full" alt="Sunset in the mountains" /> */}
             <div className="px-6 py-4">
               <div className="font-bold text-xl mb-2 "></div>
-              <Link to={`/notes/${noteId}`} className="font-bold text-shadow-green-bold text-giant mb-2">
+              <Link
+                to={`/notes/${noteId}`}
+                className="font-bold text-shadow-green-bold text-giant mb-2"
+              >
                 {title}
               </Link>
             </div>
@@ -89,7 +94,7 @@ export default function Home() {
   function renderLander() {
     return (
       <div className="lander-container leading-tight h-screen">
-        <section className="mt-16">
+        <section className="">
           <h1 className="lander--title font-black text-9xl">
             Dark Times <div>Require</div> Dark Notes
           </h1>
@@ -118,8 +123,11 @@ export default function Home() {
         <div className="notes--page-header  flex justify-between">
           <header className="text-lg">Your Notes</header>
           <div className="flex">
-              <LinkContainer to="/note/new">
-              <ListGroup.Item action className="py-3 text-nowrap text-truncate flex justify-center items-center">
+            <LinkContainer to="/note/new">
+              <ListGroup.Item
+                action
+                className="py-3 text-nowrap text-truncate flex justify-center items-center"
+              >
                 <BsPencilSquare size={17} />
                 <span className="ml-2 font-weight-bold">Create a new note</span>
               </ListGroup.Item>

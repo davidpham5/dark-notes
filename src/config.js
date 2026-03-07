@@ -1,18 +1,18 @@
 export default {
   MAX_ATTACHMENT_SIZE: 5000000,
   s3: {
-    REGION: "us-east-1",
-    BUCKET: "dpham-notes-app-uploads",
+    REGION: import.meta.env.VITE_S3_REGION,
+    BUCKET: import.meta.env.VITE_S3_BUCKET,
   },
   apiGateway: {
-    REGION: "us-east-1",
-    URL: "https://4udlh2ihb8.execute-api.us-east-1.amazonaws.com/prod",
+    REGION: import.meta.env.VITE_API_GATEWAY_REGION,
+    URL: import.meta.env.VITE_API_GATEWAY_URL,
   },
   cognito: {
-    REGION: "us-west-2",
-    USER_POOL_ID: "us-west-2_bsIZ85FW1",
-    APP_CLIENT_ID: "6ggrt8js84onh7ihj1mu2osenc",
-    IDENTITY_POOL_ID: "us-west-2:7a008f7f-b917-4098-b3e6-293bfc5d9d4a",
+    REGION: import.meta.env.VITE_COGNITO_REGION,
+    USER_POOL_ID: import.meta.env.VITE_COGNITO_USER_POOL_ID,
+    APP_CLIENT_ID: import.meta.env.VITE_COGNITO_APP_CLIENT_ID,
+    IDENTITY_POOL_ID: import.meta.env.VITE_COGNITO_IDENTITY_POOL_ID,
   },
-  STRIPE_KEY: import.meta.env.VITE_STRIPE_KEY
+  STRIPE_KEY: import.meta.env.VITE_STRIPE_KEY,
 };

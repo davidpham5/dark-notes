@@ -42,38 +42,58 @@ export default function Home() {
   }, [isAuthenticated]);
 
   function renderNoteCard(note) {
-    const { noteId, title, content, createdAt, type, bskyHandle, bskyPostCount, status } = note;
-    const date = new Date(createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+    const {
+      noteId,
+      title,
+      content,
+      createdAt,
+      type,
+      bskyHandle,
+      bskyPostCount,
+      status,
+    } = note;
+    const date = new Date(createdAt).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
 
     if (type === "bluesky") {
       const posts = content ? content.split("\n\n") : [title];
       return (
-        <div key={noteId} className="rounded-xl bg-gray-900 border border-gray-800 p-5">
+        <div
+          key={noteId}
+          className="rounded-2xl bg-iv-surface border border-iv-border p-5"
+        >
           <div className="flex items-center gap-2 mb-4">
-            <span className="text-xs font-semibold text-blue-400 bg-blue-900/30 px-2 py-0.5 rounded-full border border-blue-800/40">
-              Published · Bluesky
+            <span className="text-xs font-semibold text-iv-accent bg-iv-raised px-2.5 py-0.5 rounded-full border border-iv-border">
+              Public · Bluesky
             </span>
-            <span className="text-xs text-gray-500">@{bskyHandle}</span>
-            <span className="text-xs text-gray-600 ml-auto">{date}</span>
+            <span className="text-xs text-iv-secondary">@{bskyHandle}</span>
+            <span className="text-xs text-iv-tertiary ml-auto">{date}</span>
           </div>
           <div className="flex flex-col gap-3">
             {posts.slice(0, 2).map((text, i) => (
               <div key={i} className="flex gap-3">
                 <div className="flex flex-col items-center">
-                  <div className="w-7 h-7 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-xs shrink-0">
+                  <div className="w-7 h-7 rounded-full bg-iv-accent flex items-center justify-center text-iv-bg font-bold text-xs shrink-0">
                     {bskyHandle?.[0]?.toUpperCase() ?? "B"}
                   </div>
                   {i === 0 && posts.length > 1 && (
-                    <div className="w-0.5 flex-1 bg-gray-700 mt-1 min-h-3" />
+                    <div className="w-0.5 flex-1 bg-iv-border mt-1 min-h-3" />
                   )}
                 </div>
-                <p className={`text-sm text-gray-300 whitespace-pre-wrap leading-relaxed ${i === 0 && posts.length > 1 ? "pb-3" : ""}`}>
+                <p
+                  className={`text-sm text-iv-text whitespace-pre-wrap leading-relaxed ${i === 0 && posts.length > 1 ? "pb-3" : ""}`}
+                >
                   {text}
                 </p>
               </div>
             ))}
             {bskyPostCount > 2 && (
-              <p className="text-xs text-gray-600 ml-10">+{bskyPostCount - 2} more posts in thread</p>
+              <p className="text-xs text-iv-tertiary ml-10">
+                +{bskyPostCount - 2} more posts in thread
+              </p>
             )}
           </div>
         </div>
@@ -87,21 +107,27 @@ export default function Home() {
 
     return (
       <Link key={noteId} to={`/notes/${noteId}`} className="block group">
-        <div className="rounded-xl bg-gray-900 border border-gray-800 group-hover:border-gray-600 transition-colors px-6 py-5">
+        <div className="rounded-2xl bg-iv-surface border border-iv-border px-6 py-5 transition-all duration-150 group-hover:border-iv-tertiary group-hover:-translate-y-px">
           <div className="flex items-start justify-between gap-4 mb-2">
-            <h3 className="text-lg font-semibold text-white leading-snug group-hover:text-blue-300 transition-colors">
+            <h3 className="text-base font-semibold  leading-snug transition-colors duration-150">
               {title || "Untitled"}
             </h3>
             {isDraft ? (
-              <span className="text-xs text-gray-500 bg-gray-800 px-2 py-0.5 rounded-full shrink-0 mt-0.5">Private</span>
+              <span className="text-xs text-iv-tertiary bg-iv-raised px-2.5 py-0.5 rounded-full shrink-0 mt-0.5">
+                Private
+              </span>
             ) : (
-              <span className="text-xs text-blue-400 bg-blue-900/30 border border-blue-800/40 px-2 py-0.5 rounded-full shrink-0 mt-0.5">Public</span>
+              <span className="text-xs text-iv-accent bg-iv-raised border border-iv-border px-2.5 py-0.5 rounded-full shrink-0 mt-0.5">
+                Public
+              </span>
             )}
           </div>
           {ex && (
-            <p className="text-sm text-gray-400 leading-relaxed mb-4">{ex}</p>
+            <p className="text-sm text-iv-secondary leading-relaxed mb-4">
+              {ex}
+            </p>
           )}
-          <div className="flex items-center gap-3 text-xs text-gray-600">
+          <div className="flex items-center gap-2 text-xs text-iv-tertiary">
             <span>{date}</span>
             <span>·</span>
             <span>{wc} words</span>
@@ -114,14 +140,17 @@ export default function Home() {
   }
 
   function renderNotesList(notes) {
-    const drafts = notes.filter(n => n.type !== "bluesky" && (!n.status || n.status === "draft"));
-    const published = notes.filter(n => n.type === "bluesky" || n.status === "published");
+    const drafts = notes.filter(
+      (n) => n.type !== "bluesky" && (!n.status || n.status === "draft"),
+    );
+    const published = notes.filter(
+      (n) => n.type === "bluesky" || n.status === "published",
+    );
 
     return (
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-10">
         {drafts.length > 0 && (
           <section>
-            <h2 className="text-xs uppercase tracking-widest text-gray-600 mb-3">Private</h2>
             <div className="flex flex-col gap-3">
               {drafts.map(renderNoteCard)}
             </div>
@@ -129,7 +158,9 @@ export default function Home() {
         )}
         {published.length > 0 && (
           <section>
-            <h2 className="text-xs uppercase tracking-widest text-gray-600 mb-3">Public</h2>
+            <h2 className="text-xs uppercase tracking-widest text-iv-tertiary mb-4 font-medium">
+              Public
+            </h2>
             <div className="flex flex-col gap-3">
               {published.map(renderNoteCard)}
             </div>
@@ -141,50 +172,48 @@ export default function Home() {
 
   function renderLander() {
     return (
-      <div className="lander-container leading-tight h-screen">
-        <section className="">
-          <h1 className="lander--title font-black text-9xl">
-            Dark Times <div>Require</div> Dark Notes
-          </h1>
-          <p className="font-light text-2xl pr-5 mr-5">
-            Millions of companies of all sizes—from startups to Fortune 500s—use
-            Dark Notes' software and APIs to accept forgiveness, send thoughts,
-            and manage their biggest dreams online.{" "}
-          </p>
-        </section>
-        <div className="Home--section h-80 rounded-md border-gray-600"></div>
-        <div className="md:w-auto">
-          <Link
-            className="btn btn-primary btn-special btn-rounded "
-            to="/signup"
-          >
-            Get Started
-          </Link>
-        </div>
+      <div className="min-h-screen flex flex-col justify-center max-w-3xl mx-auto px-6 py-24">
+        <h1 className="text-5xl font-bold text-iv-text leading-tight mb-6">
+          Dark Times Require
+          <br />
+          Dark Notes
+        </h1>
+        <p className="text-lg text-iv-secondary leading-relaxed mb-10 max-w-md">
+          A place to write long-form thoughts before publishing them as Bluesky
+          threads.
+        </p>
+        <Link
+          to="/signup"
+          className="inline-flex items-center px-6 py-3 rounded-full bg-iv-accent hover:bg-iv-accent-hover text-iv-bg font-semibold text-sm transition-all duration-150 active:scale-95 w-fit"
+        >
+          Get started
+        </Link>
       </div>
     );
   }
 
   function renderNotes() {
     return (
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-3xl mx-auto py-8">
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-2xl font-bold">Your Notes</h1>
+          <h1 className="text-xl font-semibold text-iv-text">Notes</h1>
           <Link
             to="/note/new"
-            className="px-4 py-2 rounded-lg bg-gray-900 border border-gray-700 hover:border-gray-500 text-sm text-gray-300 hover:text-white transition-colors"
+            className="px-4 py-2 rounded-full bg-iv-text hover:bg-iv-accent-hover text-iv-bg text-sm font-semibold transition-all duration-150 active:scale-95"
           >
-            + New note
+            + Blah Blah Blah
           </Link>
         </div>
         {isLoading ? (
           <div className="flex justify-center items-center py-24">
-            <div className="w-10 h-10 border-4 border-gray-700 border-t-blue-400 rounded-full animate-spin" />
+            <div className="w-8 h-8 border-2 border-iv-border border-t-iv-accent rounded-full animate-spin" />
           </div>
         ) : notes.length === 0 ? (
-          <div className="text-center py-24 text-gray-600">
-            <p className="text-lg mb-2">Nothing written yet.</p>
-            <p className="text-sm">Start a note and publish it as a Bluesky thread.</p>
+          <div className="text-center py-24">
+            <p className="text-iv-secondary mb-1">Nothing written yet.</p>
+            <p className="text-sm text-iv-tertiary">
+              Start a note and publish it as a Bluesky thread.
+            </p>
           </div>
         ) : (
           renderNotesList(notes)
@@ -194,7 +223,7 @@ export default function Home() {
   }
 
   return (
-    <div className="container mt-32">
+    <div className="container">
       {isAuthenticated ? renderNotes() : renderLander()}
     </div>
   );

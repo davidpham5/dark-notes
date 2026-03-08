@@ -1,1 +1,79 @@
 @import "tailwindcss";
+
+@theme {
+  /* Faster Than Light (FTL) palette — davidchicopham.com */
+  --color-iv-bg: #01021e;
+  --color-iv-surface: #050a2e;
+  --color-iv-raised: #00305b;
+  --color-iv-border: #0d3a6a;
+  --color-iv-text: #fbf8be;
+  --color-iv-secondary: #bdc5ad;
+  --color-iv-tertiary: #6b7a6a;
+  --color-iv-accent: #0f89a7;
+  --color-iv-accent-hover: #10b4d8;
+  --color-iv-danger: #ff353f;
+  --color-iv-success: #32d74b;
+  --color-iv-pink: #ff2d78;
+
+  /* System font stack (Fira Code stays only in the editor) */
+  --font-sans:
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* Animations */
+  --animate-fade-in: fade-in 200ms ease-out both;
+  --animate-slide-up: slide-up 250ms ease-out both;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.text-glow-pink,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  color: #ff2d78 !important;
+  text-shadow:
+    0 0 8px #ff2d78,
+    0 0 20px #ff2d7866,
+    0 0 40px #ff2d7833 !important;
+}
+
+@layer base {
+  body,
+  html {
+    font-family:
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      sans-serif;
+    background-color: #01021e;
+    color: #fbf8be;
+  }
+}

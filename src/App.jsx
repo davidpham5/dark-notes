@@ -42,31 +42,31 @@ function App() {
   function renderApp() {
     return (
       !isAuthenticating && (
-        <div className="bg-gray-800 text-white dark:bg-gray-800">
-          <header className="neu-shadow top-0 z-40 lg:z-50 w-full max-w-8xl mx-auto bg-white text-black flex-none flex justify-between mb-5">
-            <div className="container mx-auto grid grid-cols-2">
-              <aside className="logo text-3xl p-3">
-                <Link to="/">Dark Notes</Link>
-              </aside>
-              <nav className="flex justify-end">
+        <div className="min-h-screen bg-iv-bg text-iv-text">
+          <header className="sticky top-0 z-50 border-b border-iv-border bg-iv-surface/80 backdrop-blur-xl">
+            <div className="container mx-auto flex items-center justify-between px-6 h-14">
+              <Link to="/" className="text-lg font-bold tracking-tight text-iv-accent hover:text-iv-accent-hover transition-colors">
+                Dark Notes
+              </Link>
+              <nav className="flex items-center gap-1">
                 {isAuthenticated ? (
-                  <div className="flex justify-evenly items-center p-1">
-                    <Link to="/settings">
-                      <span className="pl-3 pr-3">Settings</span>
+                  <>
+                    <Link to="/settings" className="px-3 py-1.5 rounded-full text-sm text-iv-secondary hover:text-iv-text hover:bg-iv-raised transition-all duration-150">
+                      Settings
                     </Link>
-                    <Link to="/login" onClick={handleLogout}>
+                    <Link to="/login" onClick={handleLogout} className="px-3 py-1.5 rounded-full text-sm text-iv-secondary hover:text-iv-text hover:bg-iv-raised transition-all duration-150">
                       Sign Out
                     </Link>
-                  </div>
+                  </>
                 ) : (
-                  <ul className="flex justify-evenly items-center p-1">
-                    <li className="p-1 pr-3 text-md">
-                      <Link to="/signup">Sign Up</Link>
-                    </li>
-                    <li className="p-1 text-md">
-                      <Link to="/login">Login</Link>
-                    </li>
-                  </ul>
+                  <>
+                    <Link to="/signup" className="px-3 py-1.5 rounded-full text-sm text-iv-secondary hover:text-iv-text hover:bg-iv-raised transition-all duration-150">
+                      Sign Up
+                    </Link>
+                    <Link to="/login" className="px-3 py-1.5 rounded-full text-sm font-medium text-iv-bg bg-iv-accent hover:bg-iv-accent-hover transition-all duration-150">
+                      Login
+                    </Link>
+                  </>
                 )}
               </nav>
             </div>

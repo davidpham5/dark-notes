@@ -15,10 +15,10 @@ function PostEditor({ value, index, total, onChange, onRemove }) {
   const isWarning = remaining >= 0 && remaining < 25;
 
   return (
-    <div className="bg-gray-900 rounded-lg p-4">
-      {index > 0 && <div className="w-0.5 h-4 bg-gray-600 ml-4 mb-3" />}
+    <div className="bg-iv-surface rounded-2xl p-4 border border-iv-border">
+      {index > 0 && <div className="w-0.5 h-4 bg-iv-border ml-4 mb-3" />}
       <div className="flex gap-3">
-        <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+        <div className="w-10 h-10 rounded-full bg-iv-accent flex items-center justify-center text-iv-bg font-bold text-sm shrink-0">
           D
         </div>
         <div className="flex-1">
@@ -28,17 +28,13 @@ function PostEditor({ value, index, total, onChange, onRemove }) {
             placeholder={
               index === 0 ? "What's on your mind?" : "Continue your thread..."
             }
-            className="w-full bg-transparent text-white resize-none outline-none placeholder-gray-500 min-h-24"
+            className="w-full bg-transparent text-iv-text resize-none outline-none placeholder-iv-tertiary min-h-24"
             rows={4}
           />
-          <div className="flex justify-between items-center mt-2 border-t border-gray-700 pt-2">
+          <div className="flex justify-between items-center mt-2 border-t border-iv-border pt-2">
             <span
               className={`text-sm font-mono ${
-                isOver
-                  ? "text-red-400"
-                  : isWarning
-                  ? "text-yellow-400"
-                  : "text-gray-500"
+                isOver ? "text-iv-danger" : isWarning ? "text-iv-accent" : "text-iv-tertiary"
               }`}
             >
               {remaining}
@@ -46,7 +42,7 @@ function PostEditor({ value, index, total, onChange, onRemove }) {
             {total > 1 && (
               <button
                 onClick={onRemove}
-                className="text-gray-500 text-sm hover:text-red-400 transition-colors"
+                className="text-iv-tertiary text-sm hover:text-iv-danger transition-colors duration-150"
               >
                 Remove
               </button>
@@ -64,17 +60,17 @@ function BlueskyCard({ text, handle, isLast }) {
   return (
     <div className="flex gap-3">
       <div className="flex flex-col items-center">
-        <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+        <div className="w-10 h-10 rounded-full bg-iv-accent flex items-center justify-center text-iv-bg font-bold text-sm shrink-0">
           D
         </div>
-        {!isLast && <div className="w-0.5 flex-1 bg-gray-600 mt-1 min-h-6" />}
+        {!isLast && <div className="w-0.5 flex-1 bg-iv-border mt-1 min-h-6" />}
       </div>
       <div className={`flex-1 ${!isLast ? "pb-6" : ""}`}>
         <div className="flex items-center gap-2 mb-1">
-          <span className="font-bold text-white">David Pham</span>
-          <span className="text-gray-400 text-sm">@{handle}</span>
+          <span className="font-semibold text-iv-text">David Pham</span>
+          <span className="text-iv-secondary text-sm">@{handle}</span>
         </div>
-        <p className="text-white whitespace-pre-wrap leading-relaxed">{text}</p>
+        <p className="text-iv-text whitespace-pre-wrap leading-relaxed">{text}</p>
       </div>
     </div>
   );
@@ -159,27 +155,27 @@ export default function Composer() {
   // ── Preview mode ────────────────────────────────────────────────────────────
   if (mode === "preview") {
     return (
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-3xl mx-auto py-8">
         <div className="flex justify-between items-center mb-8">
-          <h2 className="text-xl font-bold">Preview</h2>
-          <div className="flex gap-3">
+          <h2 className="text-xl font-semibold text-iv-text">Preview</h2>
+          <div className="flex gap-2">
             <button
               onClick={() => setMode("compose")}
-              className="px-4 py-2 rounded-lg border border-gray-600 text-gray-300 hover:border-gray-400 transition-colors text-sm"
+              className="px-4 py-1.5 rounded-full border border-iv-border text-iv-secondary hover:bg-iv-raised transition-all duration-150 text-sm"
             >
               ← Edit
             </button>
             <LoaderButton
               onClick={handlePublish}
               isLoading={isPublishing}
-              className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-sm transition-colors"
+              className="px-5 py-1.5 rounded-full bg-iv-accent hover:bg-iv-accent-hover text-iv-bg text-sm font-semibold transition-all duration-150 active:scale-95"
             >
               Publish to Bluesky
             </LoaderButton>
           </div>
         </div>
 
-        <div className="bg-gray-900 rounded-lg p-6">
+        <div className="bg-iv-surface rounded-2xl p-6 border border-iv-border">
           {filledPosts.map((post, i) => (
             <BlueskyCard
               key={i}
@@ -191,9 +187,8 @@ export default function Composer() {
         </div>
 
         {!session && (
-          <p className="mt-4 text-yellow-400 text-sm text-center">
-            No Bluesky account connected. Go to Settings to connect before
-            publishing.
+          <p className="mt-4 text-iv-accent text-sm text-center">
+            No Bluesky account connected. Go to Settings to connect before publishing.
           </p>
         )}
       </div>
@@ -202,19 +197,19 @@ export default function Composer() {
 
   // ── Compose mode ────────────────────────────────────────────────────────────
   return (
-    <div className="max-w-2xl mx-auto">
+    <div className="max-w-3xl mx-auto py-8">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl font-bold">Compose Thread</h2>
+        <h2 className="text-xl font-semibold text-iv-text">Compose Thread</h2>
         <button
           onClick={() => setMode("preview")}
           disabled={!canPreview}
-          className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm transition-colors"
+          className="px-4 py-1.5 rounded-full bg-iv-accent hover:bg-iv-accent-hover disabled:opacity-40 disabled:cursor-not-allowed text-iv-bg text-sm font-semibold transition-all duration-150 active:scale-95"
         >
           Preview →
         </button>
       </div>
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-3">
         {posts.map((post, i) => (
           <PostEditor
             key={i}
@@ -229,7 +224,7 @@ export default function Composer() {
 
       <button
         onClick={addPost}
-        className="mt-4 w-full py-3 rounded-lg border border-dashed border-gray-600 text-gray-400 hover:border-blue-500 hover:text-blue-400 transition-colors text-sm"
+        className="mt-4 w-full py-3 rounded-2xl border border-dashed border-iv-border text-iv-tertiary hover:border-iv-accent hover:text-iv-accent transition-all duration-150 text-sm"
       >
         + Add post to thread
       </button>

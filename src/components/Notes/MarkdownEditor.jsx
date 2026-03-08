@@ -28,11 +28,12 @@ const editorStyle = EditorView.theme({
   ".cm-header-3": { fontSize: "1.1em", fontWeight: "bold" },
 });
 
-export default function MarkdownEditor({ value, onChange, minHeight = "300px" }) {
+export default function MarkdownEditor({ value, onChange, height, minHeight = "300px" }) {
   return (
     <CodeMirror
       value={value}
       theme={dracula}
+      height={height}
       extensions={[
         markdown({ base: markdownLanguage, codeLanguages: languages }),
         editorStyle,
@@ -51,7 +52,7 @@ export default function MarkdownEditor({ value, onChange, minHeight = "300px" })
         highlightActiveLine: true,
         highlightSelectionMatches: false,
       }}
-      style={{ minHeight }}
+      style={{ minHeight, height: height || undefined }}
     />
   );
 }

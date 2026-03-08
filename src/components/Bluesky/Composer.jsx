@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { post as apiPost, put } from "aws-amplify/api";
 import { publishThread, getBlueskySession } from "../../libs/blueskyLib";
 import { onError } from "../../libs/errorsLibs";
 import LoaderButton from "../Buttons/LoaderButton";
@@ -82,10 +83,12 @@ function BlueskyCard({ text, handle, isLast }) {
 // ─── Main Composer ────────────────────────────────────────────────────────────
 
 export default function Composer() {
-  const [posts, setPosts] = useState([""]);
-  const [mode, setMode] = useState("compose"); // 'compose' | 'preview'
-  const [isPublishing, setIsPublishing] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const { noteId, posts: initialPosts } = location.state || {};
+  const [posts, setPosts] = useState(initialPosts?.length ? initialPosts : [""]);
+  const [mode, setMode] = useState(initialPosts?.length ? "preview" : "compose");
+  const [isPublishing, setIsPublishing] = useState(false);
   const session = getBlueskySession();
 
   function updatePost(index, value) {
@@ -106,6 +109,31 @@ export default function Composer() {
   const canPreview =
     filledPosts.length > 0 && posts.every((p) => p.length <= MAX_CHARS);
 
+  async function markNotePublished(nId) {
+    await put({
+      apiName: "notes",
+      path: `/notes/${nId}`,
+      options: { body: { status: "published" } },
+    }).response;
+  }
+
+  async function saveThreadAsNote(filledPosts) {
+    const { body } = await apiPost({
+      apiName: "notes",
+      path: "/notes",
+      options: {
+        body: {
+          title: filledPosts[0].substring(0, 80),
+          content: filledPosts.join("\n\n"),
+          type: "bluesky",
+          bskyHandle: session.handle,
+          bskyPostCount: filledPosts.length,
+        },
+      },
+    }).response;
+    return body.json();
+  }
+
   async function handlePublish() {
     if (!session) {
       alert(
@@ -116,6 +144,11 @@ export default function Composer() {
     setIsPublishing(true);
     try {
       await publishThread(posts);
+      if (noteId) {
+        await markNotePublished(noteId);
+      } else {
+        await saveThreadAsNote(filledPosts);
+      }
       navigate("/");
     } catch (e) {
       onError(e);

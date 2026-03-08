@@ -76,13 +76,16 @@
 .react-list {
   line-height: 1.5; }
 
-input {
-  padding: 10px;
-  border-radius: 5px;
-  outline: none;
-  margin: 0;
-  width: 98%;
-  border: 1px solid #dddddd; }
+@layer base {
+  input {
+    padding: 10px;
+    border-radius: 5px;
+    outline: none;
+    margin: 0;
+    width: 98%;
+    border: 1px solid #dddddd;
+  }
+}
 
 .table {
   margin: 20px 0;
